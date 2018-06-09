@@ -27,8 +27,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Account', component: AccountPage },
-      { title: 'Report An Accident', component: ReportPage },
-      { title: 'Find Safe Path', component: SafepathPage },
+      { title: 'Report an Incident', component: ReportPage },
+      { title: 'Find a Safe Route', component: SafepathPage },
       { title: 'View Vicinity', component: VicinityPage }
     ];
 
