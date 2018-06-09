@@ -20,7 +20,7 @@ def distance(loc, event):
 	x_event = event[2]
 	y_event = event[3]
 	sq = lambda x: x*x
-	return math.sqrt(sq((x_loc - x_event) * 1000 / 9) + sq((y_loc - y_event) * 80.3923585722))
+	return math.sqrt(sq((x_loc - x_event) * 1000000 / 9) + sq((y_loc - y_event) * 80392.3585722))
 
 @app.route('/', methods = ['POST'])
 def root():
@@ -31,19 +31,19 @@ def root():
 @app.route('/incidents', methods = ['POST'])
 def incidents():
 	data = loads(request.data.decode('utf-8'))
-    n = data.get('n',5)
+	n = data.get('n',5)
 	vlist = sorted(map(lambda x: (
-            distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18000,
-            distance((data['lat'],data['lng']),x),
-            x),
-        list(database)))
+		distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
+		distance((data['lat'],data['lng']),x),
+		x),
+		list(database)))
 	if len(vlist) >= n:
 		return jsonify(list(map(lambda x: {
-                'dist_from_you':x[1],
-                'emerg_type': x[2][0],
-                'time': x[2][1].strftime("%I:%M %p"),
-                'maj_int': 'NULL'},
-            vlist[:n])))
+				'dist_from_you':x[1],
+				'emerg_type': x[2][0],
+				'time': x[2][1].strftime("%I:%M %p"),
+				'maj_int': 'NULL'},
+			vlist[:n])))
 	else:
 		return jsonify([{
 			'dist_from_you': 2.1,
@@ -53,9 +53,9 @@ def incidents():
 		}, {
 			'dist_from_you': 3.4,
 			'emerg_type': 'Holding one with trouble',
-            'time': '10:14 AM',
+			'time': '10:14 AM',
 			'maj_int': 'Queen and King',
-        }])
+		}])
 
 def parse_event(event):
 	type = event['attributes']['TYP_ENG'].capitalize()

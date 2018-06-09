@@ -25,6 +25,7 @@ export class HomePage {
     this.tip = tip_list[randInt];
     this.lat = 43.6565064;
     this.lng = -79.3806653;
+    this.n = 5;
     this.items = [];
   }
 
