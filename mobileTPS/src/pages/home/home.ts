@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Http } from '@angular/http';
+import {VicinityPage} from "../vicinity/vicinity";
 
 @Component({
   selector: 'page-home',
@@ -20,8 +21,6 @@ export class HomePage {
     " ask someone to collect your mail and newspapers.", "Stay off your phone while driving.", "Walk home with friends after dark."];
     let randInt = this.randomInt(0, 3)
     this.tip = tip_list[randInt];
-    this.lat = 0;
-    this.lng = 0;
   }
 
   ionViewWillEnter() {
@@ -52,5 +51,8 @@ export class HomePage {
   randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 
+  }
+  goToOtherPage() {
+    this.navCtrl.push(VicinityPage)
   }
 }
