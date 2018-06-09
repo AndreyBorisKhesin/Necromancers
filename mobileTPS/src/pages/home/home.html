@@ -8,15 +8,39 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="pad">
-    <h5 class="red_text">If this is an emergency, call 9-1-1</h5>
-    <h6>Toronto Police Services</h6>
+  <!--TPS Info -->
+  <ion-card>
+    <ion-card-header>
+      <h4 class="red_text"><b>If this is an emergency, call 9-1-1</b></h4>
+    </ion-card-header>
+    <ion-card-content>
+      <h5><b>Toronto Police Services</b></h5>
       <p><ion-icon name="call"></ion-icon> (416) 808-2222 </p>
-      <p><ion-icon name="globe"></ion-icon> http://www.torontopolice.on.ca/</p>
+      <p><ion-icon ios="ios-globe-outline" md="md-globe"></ion-icon> <a href="http://www.torontopolice.on.ca/">
+        http://www.torontopolice.on.ca/</a></p>
+    </ion-card-content>
+  </ion-card>
 
+  <!-- Safety Tips -->
+  <div class="row-sm-4">
+    <ion-card class="card-background-page">
+      <img src="../../assets/imgs/cntower.png" alt="oops" style="max-width:100%;max-height:250px"/>
+      <p class="card-title">Safety Tip:</p>
+      <p class="card-subtitle">{{this.tip}}</p>
+    </ion-card>
   </div>
-  <div class = "more_pad">
-    <h6>Safety Tip:</h6>
-    <p>{{this.tip}}</p>
-  </div>
+
+  <!-- Incidents -->
+  <ion-card>
+    <ion-card-header>
+      <h4><u>Reported Incidents Near You</u></h4>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p class="black"><b>Time Reported:</b> {{this.time}}</p>
+      <p class="black"><b>Incident Type:</b> {{this.emerg_type}}</p>
+      <p class="black"><b>Nearest Major Intersection:</b> {{this.maj_int}}</p><span class="grey"> {{this.dist_from_you}} km</span>
+      <p class="right_align"><a href="../vicinity/vicinity.html">See Details</a></p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
