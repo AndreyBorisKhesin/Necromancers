@@ -4,21 +4,45 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Account</ion-title>
+    <ion-buttons end> <button color="royal" class="edit">Edit</button> </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding-left="1em" padding-right="1em">
-  <ion-card>
+  <ion-card style="background-color: #eeeeee;">
     <ion-card-header>
       Personal Info
     </ion-card-header>
-    <ion-card-content>
-      <p class="black"><b>Name:</b> Keena Shang</p>
-      <p class="black"><b>Phone:</b> +1 (123)-456-7890</p>
-      <p class="black"><b>Address:</b> 40 St. George Street, Toronto ON</p>
-    </ion-card-content>
-  </ion-card>
 
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <b>Name</b>
+        </ion-col>
+        <ion-col col-8>
+          Keena Shang
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-4>
+          <b>Phone</b>
+        </ion-col>
+        <ion-col col-8>
+          +1 (123)-456-7890
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-4>
+          <b>Address</b>
+        </ion-col>
+        <ion-col col-8>
+          40 St. George Street, Toronto ON
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
 
   <p>
     <br>
