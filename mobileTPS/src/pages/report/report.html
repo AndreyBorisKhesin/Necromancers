@@ -3,16 +3,34 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Report Accident</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" stacked>Name</ion-label>
+      <ion-input placeholder=""></ion-input>
+    </ion-item>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+    <ion-item>
+      <ion-label color="primary" stacked>Phone number</ion-label>
+      <ion-input type="tel" placeholder=""></ion-input>
+    </ion-item>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <ion-item>
+      <ion-label color="primary" stacked>Type of accident</ion-label>
+      <ion-select [(ngModel)]="accidentType">
+        <ion-option value="be">Break and enter</ion-option>
+        <ion-option value="harrassment">Harrassment</ion-option>
+        <ion-option value="property">Property damage</ion-option>
+        <ion-option value="robbery">Robbery</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea #comments placeholder="Additional details (optional)"  [attr.rows]=10></ion-textarea>
+    </ion-item>
+  </ion-list>
 </ion-content>
