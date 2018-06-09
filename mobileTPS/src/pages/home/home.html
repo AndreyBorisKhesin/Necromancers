@@ -8,8 +8,15 @@
 </ion-header>
 
 <ion-content padding>
-  <div>
-  <h5 class="center">Toronto Police Services non-emergency number: 416-808-2222</h5>
-    <h5 class="red_text">If you are in an emergency call 9-1-1</h5>
+  <div class="pad">
+    <h5 class="red_text">If this is an emergency, call 9-1-1</h5>
+    <h6>Toronto Police Services</h6>
+      <p><ion-icon name="call"></ion-icon> (416) 808-2222 </p>
+      <p><ion-icon name="globe"></ion-icon> http://www.torontopolice.on.ca/</p>
+
+  </div>
+  <div class = "more_pad">
+    <h6>Safety Tip:</h6>
+    <p>{{this.tip}}</p>
   </div>
 </ion-content>
