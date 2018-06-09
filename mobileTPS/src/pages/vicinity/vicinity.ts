@@ -58,35 +58,34 @@ export class VicinityPage {
       this.loc = new google.maps.LatLng(this.lat, this.lng);
 
       let mapOptions = {
-        zoom: 17,
+        zoom: 14,
         center: new google.maps.LatLng(this.lat, this.lng)
       }
     this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    this.addMarker(this.lat, this.lng);
+    this.marker = this.addMarker(this.lat, this.lng);
+    this.addInfoWindow(this.marker, "You Are Here")
     this.locmarker = new google.maps.Marker(this.loc);
 
   }
 
   addMarker(lat, lng) {
-      let marker = new google.maps.Marker({
+       let marker = new google.maps.Marker({
         map: this.map,
         animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(lat, lng)
       });
-
-      let content = "You are here!";
-      this.addInfoWindow(marker, content);
+      return marker;
     }
 
     addInfoWindow(marker, content){
+      var infowindow = new google.maps.InfoWindow({
+         content: '<div >' + content + '</div>'
+    });
 
-      let infoWindow = new google.maps.InfoWindow({
-        content: content
+      marker.addListener('click', function() {
+        infowindow.open(this.map, marker);
       });
-
-      google.maps.event.addListener(marker, 'click', () => {
-      });
-  }
+    }
 
   drawMap() {
     this.initialize()
@@ -96,7 +95,7 @@ export class VicinityPage {
 
   initialize() {
     let mapOptions = {
-      zoom: 17,
+      zoom: 14,
       center: new google.maps.LatLng(this.lat, this.lng)
     }
     this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -108,7 +107,7 @@ export class VicinityPage {
       camera: {
         target: {
           lat: 43.0741904,
-          lng: -89.3809802
+          lng: -79.3809802
         },
         zoom: 18,
         tilt: 30
@@ -143,7 +142,8 @@ export class VicinityPage {
         maj_int: args['maj_int'],
       }
       this.items.push(item)
-      this.addMarker(args['lat'], args['lng']);
+      let marker = this.addMarker(args['lat'], args['lng']);
+      this.addInfoWindow(marker, args['emerg_type'])
     }
 
   }
