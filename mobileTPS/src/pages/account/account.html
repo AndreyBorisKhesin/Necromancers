@@ -7,34 +7,57 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <p>Name: Keena Shang</p>
-  <p>Phone: +1 (123)-456-7890</p>
-  <p>Address: 40 St. George Street, Toronto ON</p>
+<ion-content padding-left="1em" padding-right="1em">
+  <ion-card>
+    <ion-card-header>
+      Personal Info
+    </ion-card-header>
+    <ion-card-content>
+      <p class="black"><b>Name:</b> Keena Shang</p>
+      <p class="black"><b>Phone:</b> +1 (123)-456-7890</p>
+      <p class="black"><b>Address:</b> 40 St. George Street, Toronto ON</p>
+    </ion-card-content>
+  </ion-card>
+
 
   <p>
+    <br>
     I want to receive alerts about:
   </p>
   <ion-list>
     <ion-item>
       <ion-label>All</ion-label>
-      <ion-checkbox [(ngModel)]="allcrimes"></ion-checkbox>
+      <ion-toggle [(ngModel)]="allcrimes" disabled="false"></ion-toggle>
     </ion-item>
 
     <ion-item>
-      <ion-label>Theft</ion-label>
-      <ion-checkbox [(ngModel)]="theft"></ion-checkbox>
+      <ion-label>Amber Alerts</ion-label>
+      <ion-toggle [(ngModel)]="amber" disabled="false"></ion-toggle>
     </ion-item>
 
     <ion-item>
-      <ion-label>Violent crimes</ion-label>
-      <ion-checkbox [(ngModel)]="violent"></ion-checkbox>
+      <ion-label>Breaking and Entering</ion-label>
+      <ion-toggle [(ngModel)]="BE" disabled="false"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Thefts</ion-label>
+      <ion-toggle [(ngModel)]="theft" disabled="false"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Violent Crimes</ion-label>
+      <ion-toggle [(ngModel)]="violent" disabled="false"></ion-toggle>
     </ion-item>
   </ion-list>
 
   <ion-list>
     <ion-item>
-      <ion-label>Allow xxx to send me text alerts when offline</ion-label>
+      <ion-label>Allow xxx to send me <br> app alerts over data</ion-label>
+      <ion-checkbox [(ngModel)]="alertdata"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Allow xxx to send me <br> text alerts when offline</ion-label>
       <ion-checkbox [(ngModel)]="text"></ion-checkbox>
     </ion-item>
   </ion-list>
