@@ -12,6 +12,7 @@ import { VicinityPage } from '../pages/vicinity/vicinity';
 
 import { ListPage } from '../pages/list/list';
 
+import { GoogleMaps } from '@ionic-native/google-maps';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -43,6 +44,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage
   ],
   providers: [
+    GoogleMaps,
     StatusBar,
     SplashScreen,
     HttpModule,
