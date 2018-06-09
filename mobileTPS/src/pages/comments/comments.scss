@@ -1,0 +1,92 @@
+page-comments {
+
+}
+
+div.pad_top_sides {
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+div.pad_sides {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+h4.red_text {
+  color: #c80000;
+}
+
+p.center {
+  text-align: center;
+}
+
+h5.center{
+  text-align: center;
+}
+
+p.black {
+  color: #000000;
+}
+
+span.grey {
+  color: #BDB9B8;
+  margin-left: 0.5em;
+}
+
+span.blue {
+  font-size: small;
+  color: #1E90FF;
+}
+
+p.right_align {
+  text-align: right;
+}
+
+
+ion-card.card-background-page {
+
+  position: relative;
+  text-align: center;
+  display: flex;
+  max-height: 250px;
+
+  .card-title {
+    position: absolute;
+    top: 36%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    top: 52%;
+    font-weight: bold;
+    width: 100%;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #fff;
+  }
+}
+
+ion-card.back_img {
+  background-image:url("../../assets/imgs/cntower.png");
+  opacity:50%;
+  background-color: #000000;
+
+}
+
+h4.white {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+p.white {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+
