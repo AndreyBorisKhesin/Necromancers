@@ -9,6 +9,8 @@ import {Http} from '@angular/http'
 export class VicinityPage {
   lat: number;
   lng: number;
+  n: number;
+  items: Array<{ dist_from_you: any, emerg_type: any, time: any, maj_int: any }>;
   dist_from_you: any;
   emerg_type: any
   time: any;
@@ -17,7 +19,9 @@ export class VicinityPage {
   constructor(private http: Http, public navCtrl: NavController) {
     this.lat = 43.6565064;
     this.lng = -79.3806653;
-}
+    this.n = 5;
+    this.items = [];
+  }
 
   ionViewWillEnter() {
     this.http.post('https://109dcaa9.ngrok.io/incidents', {
@@ -31,11 +35,19 @@ export class VicinityPage {
     });
   }
 
-  incidents(args: any) {
-    this.dist_from_you = args['dist_from_you'].toFixed(2);
-    this.emerg_type = args['emerg_type'];
-    this.time = args['time'];
-    this.maj_int = args['maj_int'];
-  }
+  incidents(argslist: any) {
+    this.items = []
+    for (let i = 0; i < this.n; i++) {
+      let args = argslist[i];
+      let item: { dist_from_you: any, emerg_type: any, time: any, maj_int: any };
+      item = {
+        dist_from_you: args['dist_from_you'],
+        emerg_type: args['emerg_type'],
+        time: args['time'],
+        maj_int: args['maj_int']
+      }
+      this.items.push(item)
+    }
 
+  }
 }
