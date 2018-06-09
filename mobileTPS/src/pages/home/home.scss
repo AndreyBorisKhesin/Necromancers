@@ -69,11 +69,12 @@ ion-card.card-background-page {
     padding-left: 1em;
     padding-right: 1em;
     color: #fff;
+    word-wrap: break-word;
   }
 }
 
 ion-card.back_img {
-  background-image:url("../../assets/imgs/cntower.png");
+  background-image:url("../../assets/imgs/torontonight.jpg");
   opacity:50%;
   background-color: #000000;
 
@@ -86,7 +87,7 @@ h4.white {
 
 p.white {
   color: #ffffff;
-  font-weight: bold;
+  font-weight: normal!important;
 }
 
 
