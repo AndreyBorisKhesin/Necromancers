@@ -13,6 +13,7 @@ app = Flask(__name__)
 CORS(app)
 
 database = set()
+comments = {}
 
 def distance(loc, event):
 	x_loc = loc[0]
@@ -57,6 +58,31 @@ def incidents():
 			'emerg_type': 'Holding one with trouble',
 			'time': '10:14 AM'
 		}])
+
+@app.route('/comments', methods = ['POST'])
+def get_comments():
+	data = loads(request.data.decode('utf-8'))
+	event_id = data.get('id', 0)
+	if event_id == 0 or event_id not in comments:
+		comment_thread = []
+	else:
+		comment_thread = comments[event_id]
+	return jsonify(comment_thread)
+
+@app.route('/post_comment', methods = ['POST'])
+def post_comment():
+	data = loads(request.data.decode('utf-8'))
+	name = data.get('name', 'Not Provided')
+	# TODO: FIX TIME FORMAT
+	time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
+	content = data.get('text', "")
+	event_id = data.get('id', 0)
+	if event_id == 0:
+		return jsonify([])
+	elif event_id not in comments:
+		comments[event_id] = []
+	comments[event_id].append({'name': name, 'time': time, 'content': content})
+	return jsonify(comments[event_id])
 
 def parse_event(event):
 	type = event['attributes']['TYP_ENG'].capitalize()
