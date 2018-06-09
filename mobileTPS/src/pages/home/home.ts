@@ -47,13 +47,13 @@ export class HomePage {
     for (let i = 0; i < this.n; i++) {
         let args = argslist[i];
         let item : {dist_from_you: any, emerg_type: any, time: any, maj_int: any};
+        item = {}
         item.dist_from_you = args['dist_from_you'].toFixed(2);
         item.emerg_type = args['emerg_type'];
         item.time = args['time'];
         item.maj_int = args['maj_int']
         this.items.push(item)
     }
-    console.log(this.items)
   }
 
   /**
