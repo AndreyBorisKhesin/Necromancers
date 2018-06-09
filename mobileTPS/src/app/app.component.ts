@@ -9,8 +9,6 @@ import { ReportPage } from '../pages/report/report';
 import { SafepathPage } from '../pages/safepath/safepath';
 import { VicinityPage } from '../pages/vicinity/vicinity';
 
-import { ListPage } from '../pages/list/list';
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -26,13 +24,11 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Account', component: AccountPage },
       { title: 'Home', component: HomePage },
-      { title: 'Report', component: ReportPage },
-      { title: 'Safepath', component: SafepathPage },
-      { title: 'Vicinity', component: VicinityPage },
-
-      { title: 'List', component: ListPage }
+      { title: 'Account', component: AccountPage },
+      { title: 'Report An Accident', component: ReportPage },
+      { title: 'Find Safe Path', component: SafepathPage },
+      { title: 'View Vicinity', component: VicinityPage }
     ];
 
   }
