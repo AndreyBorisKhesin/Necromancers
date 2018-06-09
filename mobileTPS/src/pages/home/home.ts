@@ -21,6 +21,8 @@ export class HomePage {
     " ask someone to collect your mail and newspapers.", "Stay off your phone while driving.", "Walk home with friends after dark."];
     let randInt = this.randomInt(0, 3)
     this.tip = tip_list[randInt];
+    this.lat = 43.6565064;
+    this.lng = -79.3806653;
   }
 
   ionViewWillEnter() {
@@ -36,7 +38,7 @@ export class HomePage {
   }
 
   incidents(args: any) {
-    this.dist_from_you = args['dist_from_you'];
+    this.dist_from_you = args['dist_from_you'].toFixed(2);
     this.emerg_type = args['emerg_type'];
     this.time = args['time'];
     this.maj_int = args['maj_int']

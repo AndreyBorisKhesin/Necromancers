@@ -15,7 +15,8 @@ export class VicinityPage {
   maj_int: any;
 
   constructor(private http: Http, public navCtrl: NavController) {
-
+    this.lat = 43.6565064;
+    this.lng = -79.3806653;
 }
 
   ionViewWillEnter() {
@@ -31,7 +32,7 @@ export class VicinityPage {
   }
 
   incidents(args: any) {
-    this.dist_from_you = args['dist_from_you'];
+    this.dist_from_you = args['dist_from_you'].toFixed(2);
     this.emerg_type = args['emerg_type'];
     this.time = args['time'];
     this.maj_int = args['maj_int'];
