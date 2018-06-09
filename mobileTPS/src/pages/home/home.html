@@ -24,21 +24,33 @@
   <!-- Alerts -->
     <ion-card>
       <ion-card-header>
-      <h4><u>Public Alerts</u></h4>
+      <h4 class="red_text"><u>Active Alerts & Emergencies</u></h4>
       </ion-card-header>
       <ion-card-content>
-      <p class="card-subtitle">There are currently no police announcements.</p>
+        <p class="card-subtitle">There are currently no City emergencies or major incidents at this time.</p>
       </ion-card-content>
     </ion-card>
 
+  <ion-card>
+    <ion-card-header>
+      <h4><u>Other Notices and Advisories</u></h4>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="card-subtitle">HIGH WIND ADVISORY IN EFFECT UNTIL 9PM EST TONIGHT.</p>
+    </ion-card-content>
+  </ion-card>
+
   <!-- Safety Tips -->
-  <div class="row-sm-4">
-    <ion-card class="card-background-page">
-      <img src="../../assets/imgs/cntower.png" alt="oops" style="max-width:100%;max-height:250px"/>
-      <p class="card-title">Safety Tip:</p>
-      <p class="card-subtitle">{{this.tip}}</p>
-    </ion-card>
-  </div>
+  <ion-card class="back_img">
+    <ion-card-header>
+      <h4 class="white"><b>Safety Tip:</b></h4>
+    </ion-card-header>
+    <ion-card-content>
+      <p class="card-subtitle white">{{this.tip}}</p>
+    </ion-card-content>
+  </ion-card>
+
+
 
   <!-- Incidents -->
   <!-- <ion-card-header>
