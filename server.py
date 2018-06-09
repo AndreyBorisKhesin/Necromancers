@@ -39,22 +39,32 @@ def incidents():
 		list(database)))
 	if len(vlist) >= n:
 		return jsonify(list(map(lambda x: {
-				'dist_from_you':x[1],
+				'dist_from_you':int(x[1]),
 				'emerg_type': x[2][0],
-				'time': x[2][1].strftime("%I:%M %p"),
-				'maj_int': 'NULL'},
+				'time': x[2][1].strftime("%I:%M %p")
+			},
 			vlist[:n])))
 	else:
 		return jsonify([{
-			'dist_from_you': 2.1,
+			'dist_from_you': 1,
 			'emerg_type': 'Breaking and entering',
-			'time': '12:56 PM',
-			'maj_int': 'Yonge and Dundas',
+			'time': '12:56 PM'
 		}, {
-			'dist_from_you': 3.4,
+			'dist_from_you': 4,
 			'emerg_type': 'Holding one with trouble',
-			'time': '10:14 AM',
-			'maj_int': 'Queen and King',
+			'time': '12:56 PM'
+		}, {
+			'dist_from_you': 4,
+			'emerg_type': 'Holding one with trouble',
+			'time': '12:56 PM'
+		}, {
+			'dist_from_you': 4,
+			'emerg_type': 'Holding one with trouble',
+			'time': '12:56 PM'
+		}, {
+			'dist_from_you': 4,
+			'emerg_type': 'Holding one with trouble',
+			'time': '10:14 AM'
 		}])
 
 def parse_event(event):
