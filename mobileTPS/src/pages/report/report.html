@@ -3,34 +3,76 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Report Accident</ion-title>
+    <ion-title>Report An Incident</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+  <p class="heading">Report a crime to Toronto Police. <br><b>If this is an emergency, call 9-1-1.</b></p>
+  <p class="justify">The Incident information you file will be made visible to those in your vicinity. Note: your personal
+  information will not be released.</p>
+
   <ion-list>
+    <h6>Your Information</h6>
+
     <ion-item>
-      <ion-label color="primary" stacked>Name</ion-label>
-      <ion-input placeholder=""></ion-input>
+      <ion-label stacked>Full Name</ion-label>
+      <ion-input type="name"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" stacked>Phone number</ion-label>
-      <ion-input type="tel" placeholder=""></ion-input>
+      <ion-label stacked>Phone Number</ion-label>
+      <ion-input type="phone"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label color="primary" stacked>Type of accident</ion-label>
-      <ion-select [(ngModel)]="accidentType">
-        <ion-option value="be">Break and enter</ion-option>
-        <ion-option value="harrassment">Harrassment</ion-option>
-        <ion-option value="property">Property damage</ion-option>
-        <ion-option value="robbery">Robbery</ion-option>
+      <ion-label stacked>Street Number</ion-label>
+      <ion-input type="street"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Postal Code</ion-label>
+      <ion-input type="post"></ion-input>
+    </ion-item>
+
+  </ion-list>
+  <h6>Incident Information</h6>
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Incident Type</ion-label>
+      <ion-select [(ngModel)]="in_type" multiple="true">
+        <ion-option value="missingPerson">Missing Person</ion-option>
+        <ion-option value="violentCrime">Violent Crime</ion-option>
+        <ion-option value="theft">Theft</ion-option>
+        <ion-option value="BE">Breaking and Entering</ion-option>
+        <ion-option value="sexast">Sexual Assult</ion-option>
       </ion-select>
     </ion-item>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMMM DDDD YYYY" [(ngModel)]="myDate"
+                    monthShortNames="Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec"
+                    placeholder="Choose">
+
+      </ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Time</ion-label>
+      <ion-datetime displayFormat="hh:mm a" pickerFormat="hh mm a" placeholder="Choose"></ion-datetime>
+    </ion-item>
 
     <ion-item>
-      <ion-textarea #comments placeholder="Additional details (optional)"  [attr.rows]=10></ion-textarea>
+      <ion-label stacked>Location</ion-label>
+      <ion-input type="location" placeholder="Address, Nearest Intersection, ..." text-size="small"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Additional Details</ion-label>
+      <ion-input type="location" placeholder="e.g. broken windows, suspect description" text-size="small"></ion-input>
+    </ion-item>
+
+
+
   </ion-list>
 </ion-content>
