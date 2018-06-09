@@ -40,7 +40,11 @@
       <p class="black"><b>Time Reported:</b> {{this.time}}</p>
       <p class="black"><b>Incident Type:</b> {{this.emerg_type}}</p>
       <p class="black"><b>Nearest Major Intersection:</b> {{this.maj_int}}</p><span class="grey"> {{this.dist_from_you}} km</span>
-      <p class="right_align"><a href="../vicinity/vicinity.html">See Details</a></p>
+      <p class="right_align">
+        <button (click)="goToOtherPage()">
+          <span class="blue">See Details</span>
+        </button>
+      </p>
     </ion-card-content>
   </ion-card>
 </ion-content>
