@@ -26,7 +26,7 @@ def distance(loc, event):
 	# print(sq(y_loc - y_event))
 	# print(sq((t_loc - t_event).total_seconds()/60/60/100))
 	# print(1/0)
-	return math.sqrt(sq((x_loc - x_event) * 1000 / 9) + sq((y_loc - y_event) * 80.3923585722))
+	return math.sqrt(sq((x_loc - x_event) * 1000000 / 9) + sq((y_loc - y_event) * 80392.3585722))
 
 @app.route('/', methods = ['POST'])
 def root():
@@ -37,7 +37,7 @@ def root():
 @app.route('/incidents', methods = ['POST'])
 def incidents():
 	data = loads(request.data.decode('utf-8'))
-	vlist = sorted(map(lambda x: (distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18000,distance((data['lat'],data['lng']),x), x), list(database)))
+	vlist = sorted(map(lambda x: (distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,distance((data['lat'],data['lng']),x), x), list(database)))
 	if len(vlist) != 0:
 		print((data['lat'],data['lng']))
 		print(vlist)
