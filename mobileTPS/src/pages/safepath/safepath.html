@@ -3,22 +3,19 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Find safe</ion-title>
+    <ion-title>Find Path</ion-title>
   </ion-navbar>
+
+  <ion-toolbar>
+    <ion-searchbar placeholder="Destination"
+                   [(ngModel)]="destination"
+                   (keypress)="getDestination($event)"
+                   (ionCancel)="onCancel($event)">
+
+    </ion-searchbar>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <p>Enter your destination to find a safe path:</p>
-
-  <ion-list>
-    <ion-item>
-      <ion-input placeholder="From" id="from"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input type="tel" placeholder="Destination" id="destination"></ion-input>
-    </ion-item>
-  </ion-list>
-
   <div id="map"></div>
 </ion-content>

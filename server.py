@@ -17,16 +17,10 @@ database = set()
 def distance(loc, event):
 	x_loc = loc[0]
 	y_loc = loc[1]
-	t_loc = datetime.datetime.now()
 	x_event = event[2]
 	y_event = event[3]
-	t_event = event[1]
 	sq = lambda x: x*x
-	# print(sq(x_loc - x_event))
-	# print(sq(y_loc - y_event))
-	# print(sq((t_loc - t_event).total_seconds()/60/60/100))
-	# print(1/0)
-	return math.sqrt(sq((x_loc - x_event) * 1000 / 9) + sq((y_loc - y_event) * 80.3923585722))
+	return math.sqrt(sq((x_loc - x_event) * 1000000 / 9) + sq((y_loc - y_event) * 80392.3585722))
 
 @app.route('/', methods = ['POST'])
 def root():
@@ -37,26 +31,34 @@ def root():
 @app.route('/incidents', methods = ['POST'])
 def incidents():
 	data = loads(request.data.decode('utf-8'))
-	vlist = sorted(map(lambda x: (distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18000,distance((data['lat'],data['lng']),x), x), list(database)))
-	if len(vlist) != 0:
-		print((data['lat'],data['lng']))
-		print(vlist)
-		return jsonify((lambda x: {
-			'dist_from_you':x[1],
-			'emerg_type': x[2][0],
-			'time': str(x[2][1]),
-			'maj_int': 'NULL'})(vlist[0]))
-		# vlist[:5])))))
+	n = data.get('n',5)
+	vlist = sorted(map(lambda x: (
+		distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
+		distance((data['lat'],data['lng']),x),
+		x),
+		list(database)))
+	if len(vlist) >= n:
+		return jsonify(list(map(lambda x: {
+				'dist_from_you':x[1],
+				'emerg_type': x[2][0],
+				'time': x[2][1].strftime("%I:%M %p"),
+				'maj_int': 'NULL'},
+			vlist[:n])))
 	else:
-		return jsonify({
+		return jsonify([{
 			'dist_from_you': 2.1,
-			'emerg_type': 'Breaking and Entering',
+			'emerg_type': 'Breaking and entering',
 			'time': '12:56 PM',
 			'maj_int': 'Yonge and Dundas',
-		})
+		}, {
+			'dist_from_you': 3.4,
+			'emerg_type': 'Holding one with trouble',
+			'time': '10:14 AM',
+			'maj_int': 'Queen and King',
+		}])
 
 def parse_event(event):
-	type = event['attributes']['TYP_ENG']
+	type = event['attributes']['TYP_ENG'].capitalize()
 	lat = event['geometry']['y']
 	long = event['geometry']['x']
 	time = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%Y.%m.%d %H:%M:%S")
