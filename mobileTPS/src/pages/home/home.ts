@@ -44,7 +44,7 @@ export class HomePage {
 
 	incidents(argslist: any) {
 		this.items = []
-		for (let i = 0; i < this.n; i++) {
+		for (let i = 0; i < Math.min(this.n, argslist.length); i++) {
 			let args = argslist[i];
 			let item : {dist_from_you: any, emerg_type: any, time: any, maj_int: any};
 			item = {
