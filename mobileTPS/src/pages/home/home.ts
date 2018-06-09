@@ -10,6 +10,7 @@ import {VicinityPage} from "../vicinity/vicinity";
 export class HomePage {
   lat: number;
   lng: number;
+  n: number;
   dist_from_you: any;
   emerg_type: any
   time: any;
@@ -23,12 +24,14 @@ export class HomePage {
     this.tip = tip_list[randInt];
     this.lat = 43.6565064;
     this.lng = -79.3806653;
+    this.n = 5;
   }
 
   ionViewWillEnter() {
     this.http.post('https://109dcaa9.ngrok.io/incidents', {
       'lat': this.lat,
-      'lng': this.lng
+      'lng': this.lng,
+      'n': this.n
     }).toPromise().then(data => {
       this.incidents(data.json())
     }).catch(error => {
