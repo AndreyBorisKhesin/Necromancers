@@ -3,16 +3,39 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Account</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <p>Name: Keena Shang</p>
+  <p>Phone: +1 (123)-456-7890</p>
+  <p>Address: 40 St. George Street, Toronto ON</p>
 
   <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
+    I want to receive alerts about:
   </p>
+  <ion-list>
+    <ion-item>
+      <ion-label>All</ion-label>
+      <ion-checkbox [(ngModel)]="allcrimes"></ion-checkbox>
+    </ion-item>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <ion-item>
+      <ion-label>Theft</ion-label>
+      <ion-checkbox [(ngModel)]="theft"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Violent crimes</ion-label>
+      <ion-checkbox [(ngModel)]="violent"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Allow xxx to send me text alerts when offline</ion-label>
+      <ion-checkbox [(ngModel)]="text"></ion-checkbox>
+    </ion-item>
+  </ion-list>
 </ion-content>
