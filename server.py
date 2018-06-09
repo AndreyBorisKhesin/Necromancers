@@ -42,9 +42,9 @@ def incidents():
 				'dist_from_you':int(x[1]),
 				'emerg_type': x[2][0],
 				'time': x[2][1].strftime("%I:%M %p"),
-                'lat': x[2][2],
-                'lng': x[2][3],
-                'id': x[2][4],
+				'lat': x[2][2],
+				'lng': x[2][3],
+				'id': x[2][4],
 			},
 			vlist[:n])))
 	else:
@@ -63,7 +63,7 @@ def parse_event(event):
 	lat = event['geometry']['y']
 	long = event['geometry']['x']
 	time = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%Y.%m.%d %H:%M:%S")
-    id = event['attributes']['OBJECTID']
+	id = event['attributes']['OBJECTID']
 	return (type, time, lat, long, id)
 
 def scrape():
