@@ -1,3 +1,4 @@
+from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
 from flask import Flask, request, redirect
 from json import loads
@@ -30,7 +31,15 @@ def scrape():
     url = "http://c4s.torontopolice.on.ca/arcgis/rest/services/CADPublic/C4S/MapServer/0/query?f=json&where=1%3d1&outfields=*&outSR=4326"
     results = loads(requests.post(url).text)   
     for result in results['features']:
-        print(parse_event(result))
+        # print(parse_event(result))
+        break
+
+@app.before_first_request
+def init_scraper():
+    apsched = BackgroundScheduler()
+    apsched.start()
+
+    apsched.add_job(scrape, trigger="interval", seconds=60)
 
 if __name__ == "__main__":
     app.run()
