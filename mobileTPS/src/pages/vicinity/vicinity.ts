@@ -10,6 +10,7 @@ import {
   MarkerOptions,
   Marker
 } from '@ionic-native/google-maps';
+import { CommentsPage } from '../comments/comments';
 
 declare var google;
 
@@ -21,7 +22,7 @@ export class VicinityPage {
   lat: number;
   lng: number;
   n: number;
-  items: Array<{ dist_from_you: any, emerg_type: any, time: any, maj_int: any }>;
+  items: Array<{ dist_from_you: any, emerg_type: any, time: any, maj_int: any, event_id: number }>;
   dist_from_you: any;
   emerg_type: any
   time: any;
@@ -134,17 +135,23 @@ export class VicinityPage {
     this.items = []
     for (let i = 0; i < this.n; i++) {
       let args = argslist[i];
-      let item: { dist_from_you: any, emerg_type: any, time: any, maj_int: any};
+      let item: { dist_from_you: any, emerg_type: any, time: any, maj_int: any, event_id: number };
       item = {
         dist_from_you: args['dist_from_you'],
         emerg_type: args['emerg_type'],
         time: args['time'],
         maj_int: args['maj_int'],
+        event_id: args['id'],
       }
       this.items.push(item)
       let marker = this.addMarker(args['lat'], args['lng']);
       this.addInfoWindow(marker, args['emerg_type'])
     }
+  }
 
+  see_comments(event, id) {
+    this.navCtrl.push(CommentsPage, {
+      id: id
+    });
   }
 }

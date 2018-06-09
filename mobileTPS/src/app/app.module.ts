@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { AccountPage } from '../pages/account/account';
+import { CommentsPage } from '../pages/comments/comments';
 import { HomePage } from '../pages/home/home';
 import { ReportPage } from '../pages/report/report';
 import { SafepathPage } from '../pages/safepath/safepath';
@@ -20,6 +21,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     AccountPage,
+    CommentsPage,
     HomePage,
     ReportPage,
     SafepathPage,
@@ -36,6 +38,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     AccountPage,
+    CommentsPage,
     HomePage,
     ReportPage,
     SafepathPage,

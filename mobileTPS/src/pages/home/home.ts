@@ -19,9 +19,13 @@ export class HomePage {
 	tip: any;
 
 	constructor(private http: Http, public navCtrl: NavController) {
+		this.numbers();
+	}
+
+	numbers() {
 		let tip_list = ["Lock your car doors and keep valuables out of sight.", "If you are away from home for an extended time," +
 		" ask someone to collect your mail and newspapers.", "Stay off your phone while driving.", "Walk home with friends after dark."];
-		let randInt = this.randomInt(0, 3)
+		let randInt = this.randomInt(0, 3);
 		this.tip = tip_list[randInt];
 		this.lat = 43.6565064;
 		this.lng = -79.3806653;
@@ -30,6 +34,10 @@ export class HomePage {
 	}
 
 	ionViewWillEnter() {
+		this.loadIncidents();
+	}
+
+	loadIncidents() {
 		this.http.post('https://109dcaa9.ngrok.io/incidents', {
 			'lat': this.lat,
 			'lng': this.lng,
@@ -40,6 +48,16 @@ export class HomePage {
 			console.error('An error occurred in HomePage', error);
 			return Promise.reject(error.message || error);
 		});
+	}
+
+	doRefresh(refresher) {
+		this.numbers();
+		this.loadIncidents();
+		
+		setTimeout(() => {
+			console.log('Async operation has ended');
+			refresher.complete();
+		}, 2000);
 	}
 
 	incidents(argslist: any) {
