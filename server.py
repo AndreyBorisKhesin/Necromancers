@@ -41,25 +41,16 @@ def incidents():
 		return jsonify(list(map(lambda x: {
 				'dist_from_you':int(x[1]),
 				'emerg_type': x[2][0],
-				'time': x[2][1].strftime("%I:%M %p")
+				'time': x[2][1].strftime("%I:%M %p"),
+				'lat': x[2][2],
+				'lng': x[2][3],
+				'id': x[2][4],
 			},
 			vlist[:n])))
 	else:
 		return jsonify([{
 			'dist_from_you': 1,
 			'emerg_type': 'Breaking and entering',
-			'time': '12:56 PM'
-		}, {
-			'dist_from_you': 4,
-			'emerg_type': 'Holding one with trouble',
-			'time': '12:56 PM'
-		}, {
-			'dist_from_you': 4,
-			'emerg_type': 'Holding one with trouble',
-			'time': '12:56 PM'
-		}, {
-			'dist_from_you': 4,
-			'emerg_type': 'Holding one with trouble',
 			'time': '12:56 PM'
 		}, {
 			'dist_from_you': 4,
@@ -72,7 +63,8 @@ def parse_event(event):
 	lat = event['geometry']['y']
 	long = event['geometry']['x']
 	time = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%Y.%m.%d %H:%M:%S")
-	return (type, time, lat, long)
+	id = event['attributes']['OBJECTID']
+	return (type, time, lat, long, id)
 
 def scrape():
 	global database
