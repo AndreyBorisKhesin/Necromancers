@@ -10,6 +10,7 @@ import {VicinityPage} from "../vicinity/vicinity";
 export class HomePage {
   lat: number;
   lng: number;
+  n: number;
   dist_from_you: any;
   emerg_type: any
   time: any;
@@ -28,7 +29,8 @@ export class HomePage {
   ionViewWillEnter() {
     this.http.post('https://109dcaa9.ngrok.io/incidents', {
       'lat': this.lat,
-      'lng': this.lng
+      'lng': this.lng,
+      'n': 
     }).toPromise().then(data => {
       this.incidents(data.json())
     }).catch(error => {
