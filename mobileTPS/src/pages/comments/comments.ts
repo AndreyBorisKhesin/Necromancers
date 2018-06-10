@@ -82,6 +82,7 @@ export class CommentsPage {
 				time: args['time'],
 				text: args['text'],
 			}
+      this.comments.push(item)
 		}
 	}
 
