@@ -155,7 +155,7 @@ def report_event():
 		date = dt.strftime("%b %d %Y")
 		comments[new_event_id].append({'name': name, 'time': time, 'date': date, 'text': text})
 	new_event_id -= 1
-	return jsonify([])
+	return jsonify({'id': new_event_id+1})
 
 @app.route('/', methods = ['POST'])
 def sms_process():
