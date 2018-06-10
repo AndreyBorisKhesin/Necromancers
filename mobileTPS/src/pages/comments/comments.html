@@ -9,21 +9,40 @@
 
 <ion-content padding>
   <!--TPS Info -->
-  <!-- TODO: CHECK THIS OUT -->
-  <h4><u>TODO: THIS PART</u></h4>
-  <!-- TODO: INCIDENT DATA GOES HERE -->
+  <h4><u>Details on "{{this.emerg_type}}"</u></h4>
+
+  The event took place at {{this.time}}.
+
+  <!-- TODO: Make a map -->
 
   <!-- Incidents -->
-  <ion-card-header>
-    <h5><u>Comments</u></h5>
-  </ion-card-header>
+    <h5><u>Further details</u></h5>
   <ion-card *ngFor="let comment of comments">
 
     <ion-card-content>
       <span class="black"><b>{{comment.name}} said:</b></span>
       <span>{{comment.text}}</span>
-      <span class="gray"><b>{{comment.time}}</b></span>
+      <span class="grey">- {{comment.time}}</span>
       <!-- <p class="black"><b>Nearest Major Intersection:</b> {{item.maj_int}}</p> -->
     </ion-card-content>
   </ion-card>
+
+  <ion-list>
+    <!-- TODO: WORD THIS MORE FORMALLY -->
+    <h6>Post a Comment</h6>
+
+    <ion-item>
+      <ion-label stacked>Full Name</ion-label>
+      <ion-input type="name" [(ngModel)]="posted_comment.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Additional Details</ion-label>
+      <ion-textarea rows="3" placeholder="e.g. broken windows, suspect description" text-size="small" [(ngModel)]="posted_comment.text"></ion-textarea>
+    </ion-item>
+
+    <button ion-button (click)="send($event)">
+      <ion-icon name="send"></ion-icon>
+    </button>
+  </ion-list>
 </ion-content>

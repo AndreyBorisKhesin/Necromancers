@@ -17,22 +17,22 @@
 
     <ion-item>
       <ion-label stacked>Full Name</ion-label>
-      <ion-input type="name"></ion-input>
+      <ion-input type="name" value="Keena Shang"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Phone Number</ion-label>
-      <ion-input type="phone"></ion-input>
+      <ion-input type="phone" value="+1 (123)-456-7890"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Street Number</ion-label>
-      <ion-input type="street"></ion-input>
+      <ion-label stacked>Address</ion-label>
+      <ion-input type="street" value="40 St.George Street"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Postal Code</ion-label>
-      <ion-input type="post"></ion-input>
+      <ion-input type="post" value="M5S 2E4"></ion-input>
     </ion-item>
 
   </ion-list>
@@ -41,7 +41,7 @@
 
     <ion-item>
       <ion-label>Incident Type</ion-label>
-      <ion-select [(ngModel)]="in_type" multiple="true">
+      <ion-select [(ngModel)]="in_type" multiple="false">
         <ion-option value="missingPerson">Missing Person</ion-option>
         <ion-option value="violentCrime">Violent Crime</ion-option>
         <ion-option value="theft">Theft</ion-option>
@@ -64,12 +64,12 @@
 
     <ion-item>
       <ion-label stacked>Location</ion-label>
-      <ion-input type="location" placeholder="Address, Nearest Intersection, ..." text-size="small"></ion-input>
+      <ion-textarea rows="3" placeholder="Address, Nearest Intersection, ..." text-size="small"></ion-textarea>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Additional Details</ion-label>
-      <ion-input type="location" placeholder="e.g. broken windows, suspect description" text-size="small"></ion-input>
+      <ion-textarea rows="3" placeholder="e.g. broken windows, suspect description" text-size="small"></ion-textarea>
     </ion-item>
 
 
