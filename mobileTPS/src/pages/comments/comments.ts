@@ -11,7 +11,6 @@ import {
   MarkerOptions,
   Marker
 } from '@ionic-native/google-maps';
-import { CommentsPage } from '../comments/comments';
 
 declare var google;
 
