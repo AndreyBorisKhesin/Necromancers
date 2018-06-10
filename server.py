@@ -4,6 +4,7 @@ from flask import Flask, request, redirect, jsonify
 from flask_cors import CORS
 from json import loads
 import math
+import random
 import requests
 import twilio.twiml
 from twilio.twiml.messaging_response import MessagingResponse
@@ -35,7 +36,7 @@ def alert(subscriber, event_tuple, dist):
 	# Parse the subscriber's notification preferences.
 	# Then, send them an alert if the event satisfies it,
 	# in the desired format for them.
-	msg = '' + event_tuple[0] + ' has been reported ' + str(int(dist)) + ' metres from you.'
+	msg = '' + event_tuple[0] + ' has been reported ' + str(int(dist) + random.randint(3,10)) + ' metres from you.'
 	client.messages.create(to = subscriber,
 		from_ = '+16473609652',
 		body = msg)
@@ -52,7 +53,7 @@ def add_event(event_tuple, no_alert=True):
 		comments[event_tuple[4]] = []
 
 	dist = distance([43.6576163,-79.3812037], [0, 0, event_tuple[2], event_tuple[3]])
-	if not no_alert and dist < 0:
+	if not no_alert and dist < 10000: #RIGHT HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		for subscriber in subscribers:
 			alert(subscriber, event_tuple, dist)
 	return event_tuple[4]
@@ -68,7 +69,7 @@ def incidents():
 		database.values()))
 	if len(vlist) >= n:
 		return jsonify(list(map(lambda x: {
-				'dist_from_you':int(x[1]),
+				'dist_from_you': int(x[1]) + random.randint(3,10),
 				'emerg_type': x[2][0],
 				'time': x[2][1].strftime("%I:%M %p"),
 				'lat': x[2][2],
@@ -102,7 +103,7 @@ def incident_data():
 		distance((data['lat'],data['lng']),x),
 		x))(database[event_id])
 	return jsonify((lambda x: {
-				'dist_from_you':int(x[1]),
+				'dist_from_you': int(x[1]) + random.randint(3,10),
 				'emerg_type': x[2][0],
 				'time': x[2][1].strftime("%I:%M %p"),
 				'lat': x[2][2],
