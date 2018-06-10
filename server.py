@@ -9,6 +9,9 @@ import twilio.twiml
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.rest import Client
 
+client = Client("AC4e7890114509da5929a4bc79ebf8bdc0",
+		"47ee8d75ad0e2973601122c2a65d7b7c")
+
 app = Flask(__name__)
 CORS(app)
 
@@ -27,13 +30,16 @@ def distance(loc, event):
 	sq = lambda x: x*x
 	return math.sqrt(sq((x_loc - x_event) * 1000000 / 9) + sq((y_loc - y_event) * 80392.3585722))
 
-def alert(subscriber, event_tuple):
+def alert(subscriber, event_tuple, dist):
 	# Alert the given subscriber to an event that happened.
 	# Parse the subscriber's notification preferences.
 	# Then, send them an alert if the event satisfies it,
 	# in the desired format for them.
-	text = "Alert: A new crime ({type}) has been reported at {time} and {place}."
-	pass
+	msg = '' + event_tuple[0] + ' has been reported ' + str(int(dist)) + ' metres from you.'
+	client.messages.create(to = subscriber,
+		from_ = '+16473609652',
+		body = msg)
+	return None
 
 def add_event(event_tuple, no_alert=True):
 	if event_tuple[4] in database:
@@ -45,9 +51,10 @@ def add_event(event_tuple, no_alert=True):
 	if event_tuple[4] not in comments:
 		comments[event_tuple[4]] = []
 
-	if not no_alert and distance([43.6565064, -79.3810757], [event_tuple[2], event_tuple[3]]) < 30:
+	dist = distance([43.6565064, -79.3810757], [0, 0, event_tuple[2], event_tuple[3]])
+	if not no_alert and dist < 0:
 		for subscriber in subscribers:
-			alert(subscriber, event_tuple)
+			alert(subscriber, event_tuple, dist)
 	return event_tuple[4]
 
 @app.route('/incidents', methods = ['POST'])
@@ -136,16 +143,15 @@ def report_event():
 	global new_event_id
 	data = loads(request.data.decode('utf-8'))
 	name = data.get('name', 'Not Provided')
-	time = data.get('time', datetime.datetime.now().strftime("%b %d %Y"))
+	dt = datetime.datetime.now()
 	type = data.get('type', 'Unknown').capitalize()
 	text = data.get('text', None)
 	lat = data['lat']
 	lng = data['lng']
-	date = data.get('date', datetime.datetime.now().strftime("%I:%M %p"))
-	add_event((type, time, lat, lng, new_event_id, date, datetime.datetime.now()))
+	add_event((type, dt, lat, lng, new_event_id, dt, datetime.datetime.now()), no_alert = False)
 	if text is not None:
 		time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
-		comments[new_event_id].append({'name': name, 'time': time, 'text': text})
+		comments[new_event_id].append({'name': name, 'time': dt.time(), 'date': dt.date(), 'text': text})
 	new_event_id -= 1
 	return jsonify([])
 
