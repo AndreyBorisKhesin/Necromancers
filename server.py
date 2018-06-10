@@ -116,7 +116,7 @@ def report_event():
 	lng = data['lng']
 	database[new_event_id] = (type, time, lat, lng, new_event_id)
 	new_event_id -= 1
-    return jsonify([])
+	return jsonify([])
 
 def parse_event(event):
 	type = event['attributes']['TYP_ENG'].capitalize()
