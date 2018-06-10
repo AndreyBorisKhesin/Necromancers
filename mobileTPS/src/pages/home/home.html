@@ -1,68 +1,76 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Home</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <!--TPS Info -->
-  <ion-card>
-    <ion-card-header>
-      <h4 class="red_text"><b>If this is an emergency, call 9-1-1</b></h4>
-    </ion-card-header>
-    <ion-card-content>
-      <h5><b>Toronto Police Services</b></h5>
-      <p><ion-icon name="call"></ion-icon> (416) 808-2222 </p>
-      <p><ion-icon ios="ios-globe-outline" md="md-globe"></ion-icon> <a href="http://www.torontopolice.on.ca/">
-        http://www.torontopolice.on.ca/</a></p>
-    </ion-card-content>
-  </ion-card>
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content
+			pullingIcon="arrow-dropdown"
+			pullingText="Pull to refresh"
+			refreshingSpinner="circles"
+			refreshingText="Refreshing...">
+		</ion-refresher-content>
+	</ion-refresher>
+	<!--TPS Info -->
+	<ion-card>
+		<ion-card-header>
+			<h4 class="red_text"><b>If this is an emergency, call 9-1-1.</b></h4>
+		</ion-card-header>
+		<ion-card-content>
+			<h5><b>Toronto Police Services</b></h5>
+			<p><ion-icon name="call"></ion-icon> (416) 808-2222 </p>
+			<p><ion-icon ios="ios-globe-outline" md="md-globe"></ion-icon> <a href="http://www.torontopolice.on.ca/">
+				http://www.torontopolice.on.ca/</a></p>
+		</ion-card-content>
+	</ion-card>
 
-  <!-- Alerts -->
-    <ion-card>
-      <ion-card-header>
-      <h4 class="red_text"><u>Active Alerts & Emergencies</u></h4>
-      </ion-card-header>
-      <ion-card-content>
-        <p class="card-subtitle">There are currently no City emergencies or major incidents at this time.</p>
-      </ion-card-content>
-    </ion-card>
+	<!-- Alerts -->
+		<ion-card>
+			<ion-card-header>
+			<h4 class="red_text"><u>Active Alerts & Emergencies</u></h4>
+			</ion-card-header>
+			<ion-card-content>
+				<p class="card-subtitle">There are currently no City emergencies or major incidents at this time.</p>
+			</ion-card-content>
+		</ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <h4><u>Other Notices and Advisories</u></h4>
-    </ion-card-header>
-    <ion-card-content>
-      <p class="card-subtitle">HIGH WIND ADVISORY IN EFFECT UNTIL 9PM EST TONIGHT.</p>
-    </ion-card-content>
-  </ion-card>
+	<ion-card>
+		<ion-card-header>
+			<h4><u>Other Notices and Advisories</u></h4>
+		</ion-card-header>
+		<ion-card-content>
+			<p class="card-subtitle">HIGH WIND ADVISORY IN EFFECT UNTIL 9PM EST TONIGHT.</p>
+		</ion-card-content>
+	</ion-card>
 
-  <!-- Safety Tips -->
-  <ion-card class="back_img">
-    <ion-card-header>
-      <h4 class="white"><b>Safety Tip:</b></h4>
-    </ion-card-header>
-    <ion-card-content>
-      <p class="card-subtitle white">{{this.tip}}</p>
-    </ion-card-content>
-  </ion-card>
+	<!-- Safety Tips -->
+	<ion-card class="back_img">
+		<ion-card-header>
+			<h4 class="white"><b>Safety Tip:</b></h4>
+		</ion-card-header>
+		<ion-card-content>
+			<p class="card-subtitle white">{{this.tip}}</p>
+		</ion-card-content>
+	</ion-card>
 
 
 
-  <!-- Incidents -->
-  <ion-card-header>
-    <h5><u>Reported Incidents Near You</u></h5>
-  </ion-card-header>
-  <ion-card *ngFor="let item of items">
+	<!-- Incidents -->
+	<ion-card-header>
+		<h5><u>Reported Incidents Near You</u></h5>
+	</ion-card-header>
+	<ion-card *ngFor="let item of items">
 
-    <ion-card-content>
-      <p class="black"><b>Date and Time:</b> {{item.time}}</p>
-      <p class="black"><b>Incident Type:</b> {{item.emerg_type}}</p>
-      <!-- <p class="black"><b>Nearest Major Intersection:</b> {{item.maj_int}}</p> -->
-      <span class="black"> {{item.dist_from_you}} m from you</span>
-    </ion-card-content>
-  </ion-card>
+		<ion-card-content>
+			<p class="black"><b>Date and Time:</b> {{item.time}}</p>
+			<p class="black"><b>Incident Type:</b> {{item.emerg_type}}</p>
+			<!-- <p class="black"><b>Nearest Major Intersection:</b> {{item.maj_int}}</p> -->
+			<span class="black"> {{item.dist_from_you}} m from you</span>
+		</ion-card-content>
+	</ion-card>
 </ion-content>

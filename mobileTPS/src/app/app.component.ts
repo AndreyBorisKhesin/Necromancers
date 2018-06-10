@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AccountPage } from '../pages/account/account';
+import { CommentsPage } from '../pages/comments/comments';
 import { HomePage } from '../pages/home/home';
 import { ReportPage } from '../pages/report/report';
 import { SafepathPage } from '../pages/safepath/safepath';
@@ -26,8 +27,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Account', component: AccountPage },
-      { title: 'Report An Accident', component: ReportPage },
-      { title: 'Find Safe Path', component: SafepathPage },
+      { title: 'Report an Incident', component: ReportPage },
+      { title: 'Find a Safe Route', component: SafepathPage },
       { title: 'View Vicinity', component: VicinityPage }
     ];
 

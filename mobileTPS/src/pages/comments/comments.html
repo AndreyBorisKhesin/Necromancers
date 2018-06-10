@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Comments on {{this.id}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <!--TPS Info -->
+  <!-- TODO: CHECK THIS OUT -->
+  <h4><u>TODO: THIS PART</u></h4>
+  <!-- TODO: INCIDENT DATA GOES HERE -->
+
+  <!-- Incidents -->
+  <ion-card-header>
+    <h5><u>Comments</u></h5>
+  </ion-card-header>
+  <ion-card *ngFor="let comment of comments">
+
+    <ion-card-content>
+      <span class="black"><b>{{comment.name}} said:</b></span>
+      <span>{{comment.text}}</span>
+      <span class="gray"><b>{{comment.time}}</b></span>
+      <!-- <p class="black"><b>Nearest Major Intersection:</b> {{item.maj_int}}</p> -->
+    </ion-card-content>
+  </ion-card>
+</ion-content>

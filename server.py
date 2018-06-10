@@ -12,7 +12,7 @@ from twilio.rest import Client
 app = Flask(__name__)
 CORS(app)
 
-database = set()
+database = {}
 comments = {}
 
 def distance(loc, event):
@@ -34,10 +34,10 @@ def incidents():
 	data = loads(request.data.decode('utf-8'))
 	n = data.get('n',5)
 	vlist = sorted(map(lambda x: (
-		distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
-		distance((data['lat'],data['lng']),x),
-		x),
-		list(database)))
+			distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
+			distance((data['lat'],data['lng']),x),
+			x),
+		database.values()))
 	if len(vlist) >= n:
 		return jsonify(list(map(lambda x: {
 				'dist_from_you':int(x[1]),
@@ -58,6 +58,26 @@ def incidents():
 			'emerg_type': 'Holding one with trouble',
 			'time': '10:14 AM'
 		}])
+
+@app.route('/incident_data', methods = ['POST'])
+def incident_data():
+	data = loads(request.data.decode('utf-8'))
+	event_id = data.get('id', 0)
+	if event_id == 0 or event_id not in database:
+		# TODO: What to return in case of an error?
+		return jsonify([])
+	event_data = (lambda x: (
+		distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
+		distance((data['lat'],data['lng']),x),
+		x))(database[event_id])
+	return jsonify((lambda x: {
+				'dist_from_you':int(x[1]),
+				'emerg_type': x[2][0],
+				'time': x[2][1].strftime("%I:%M %p"),
+				'lat': x[2][2],
+				'lng': x[2][3],
+				'id': x[2][4],
+			})(event_data))
 
 @app.route('/comments', methods = ['POST'])
 def get_comments():
@@ -81,7 +101,7 @@ def post_comment():
 		return jsonify([])
 	elif event_id not in comments:
 		comments[event_id] = []
-	comments[event_id].append({'name': name, 'time': time, 'content': content})
+	comments[event_id].append({'name': name, 'time': time, 'text': content})
 	return jsonify(comments[event_id])
 
 def parse_event(event):
@@ -101,9 +121,9 @@ def scrape():
 		print(datetime.datetime.now())
 		for result in results['features']:
 			event = parse_event(result)
-			if event not in database:
+			if event[4] not in database:
 				print(event)
-				database.add(event)
+				database[event[4]] = event
 		# vlist = sorted(map(lambda x: (distance((43.657771,-79.381107),x), x), list(database)))
 
 @app.before_first_request
