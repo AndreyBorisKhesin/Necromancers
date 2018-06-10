@@ -15,9 +15,9 @@ CORS(app)
 database = {}
 comments = {}
 new_event_id = -1
-subscribers = {"Sample user": {
+subscribers = {"+16475153544": {
 	"contact": {"type": "phone",
-		"number": "Sample here"},
+		"number": "+16475153544"},
 	"options": {"types": "all"}}}
 # This has a sample user.
 # They want to be alerted via text, for all crimes that occur.
@@ -48,9 +48,9 @@ def add_event(event_tuple, no_alert=True):
 	if event_tuple[4] not in comments:
 		comments[event_tuple[4]] = []
 
-    if not no_alert:
-        for subscriber in subscribers:
-            alert(subscriber, event_tuple[4])
+	if not no_alert:
+		for subscriber in subscribers:
+			alert(subscriber, event_tuple[4])
 	return event_tuple[4]
 
 @app.route('/', methods = ['POST'])
@@ -149,6 +149,14 @@ def report_event():
 		time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
 		comments[new_event_id].append({'name': name, 'time': time, 'text': text})
 	new_event_id -= 1
+	return jsonify([])
+
+@app.route('/sms', methods = ['POST'])
+def sms_process():
+	data = loads(request.data.decode('utf-8'))
+	from_num = data.get('From', None)
+	if from_num is not None:
+		subscribers[from_num] = {}
 	return jsonify([])
 
 def parse_event(event):
