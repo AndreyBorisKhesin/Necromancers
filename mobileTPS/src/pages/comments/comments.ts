@@ -27,12 +27,13 @@ export class CommentsPage {
 	emerg_type: any
 	time: any;
 	maj_int: any;
-	comments: Array<{name: any, time: any, text: any}>;
-	posted_comment : {name: any, text: any};
+	comments: Array<{name: any, time: any, text: any, date:any}>;
+	posted_comment : {name: any, text: any, date: any, time: any};
 	loc: any;
 	map: any;
 	marker: any;
 	locmarker: any;
+	date:any;
 
 	constructor(private http: Http, public navCtrl: NavController, public navParams: NavParams) {
 		this.numbers();
@@ -43,7 +44,7 @@ export class CommentsPage {
 		this.lng = -79.3806653;
 		this.id = this.navParams.get('id');
 		this.comments = []
-		this.posted_comment = {name: "", text: ""};
+		this.posted_comment = {name: "", text: "", date:"", time: ""};
 	}
 
 	ionViewWillEnter() {
@@ -78,17 +79,19 @@ export class CommentsPage {
 		this.event_lat = args['lat'];
 		this.event_lng = args['lng'];
 		this.time = args['time'];
+		this.date = args['date']
 	}
 
 	parse_comments(argslist: any) {
 		this.comments = []
 		for (let i = 0; i < argslist.length; i++) {
 			let args = argslist[i];
-			let item : {name: any, time: any, text: any};
+			let item : {name: any, time: any, text: any, date:any};
 			item = {
 				name: args['name'],
 				time: args['time'],
 				text: args['text'],
+        date: args['date']
 			}
       this.comments.push(item)
 		}
@@ -98,7 +101,9 @@ export class CommentsPage {
 		this.http.post('https://109dcaa9.ngrok.io/post_comment', {
 			'name': this.posted_comment.name,
 			'text': this.posted_comment.text,
-			'id': this.id
+			'id': this.id,
+      'time': this.posted_comment.time,
+      'date': this.posted_comment.date
 		}).toPromise();
 	}
 }
