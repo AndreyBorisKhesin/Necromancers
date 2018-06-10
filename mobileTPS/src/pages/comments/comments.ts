@@ -17,12 +17,14 @@ export class CommentsPage {
 	time: any;
 	maj_int: any;
 	comments: Array<{name: any, time: any, text: any}>;
+	posted_comment : {name: any, text: any};
 
 	constructor(private http: Http, public navCtrl: NavController, public navParams: NavParams) {
 		this.lat = 43.6565064;
 		this.lng = -79.3806653;
 		this.id = navParams.get('id');
 		this.comments = []
+		this.posted_comment = {name: "", text: ""};
 	}
 
 	ionViewWillEnter() {
@@ -67,5 +69,13 @@ export class CommentsPage {
 			}
 			this.comments.push(item)
 		}
+	}
+
+	send(event: any) {
+		this.http.post('https://109dcaa9.ngrok.io/post_comment', {
+			'name': this.posted_comment.name,
+			'text': this.posted_comment.text,
+			'id': this.id
+		}).toPromise();
 	}
 }

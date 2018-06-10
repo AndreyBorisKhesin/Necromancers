@@ -26,4 +26,22 @@
       <!-- <p class="black"><b>Nearest Major Intersection:</b> {{item.maj_int}}</p> -->
     </ion-card-content>
   </ion-card>
+
+  <ion-list>
+    <!-- TODO: WORD THIS MORE FORMALLY -->
+    <h6>Post a Comment</h6>
+
+    <ion-item>
+      <ion-label stacked>Full Name</ion-label>
+      <ion-input type="name" [(ngModel)]="posted_comment.name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Additional Details</ion-label>
+      <ion-input type="location" placeholder="e.g. broken windows, suspect description" text-size="small" [(ngModel)]="posted_comment.text"></ion-input>
+    </ion-item>
+    <button ion-button (click)="send($event)">
+      <ion-icon name="send"></ion-icon>
+    </button>
+  </ion-list>
 </ion-content>
