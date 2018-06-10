@@ -15,10 +15,7 @@ CORS(app)
 database = {}
 comments = {}
 new_event_id = -1
-subscribers = {"+16475153544": {
-	"contact": {"type": "phone",
-		"number": "+16475153544"},
-	"options": {"types": "all"}}}
+subscribers = {"+16475153544"}
 # This has a sample user.
 # They want to be alerted via text, for all crimes that occur.
 
@@ -157,11 +154,14 @@ def report_event():
 
 @app.route('/sms', methods = ['POST'])
 def sms_process():
+	resp = MessagingResponse()
 	data = loads(request.data.decode('utf-8'))
 	from_num = data.get('From', None)
 	if from_num is not None:
-		subscribers[from_num] = {}
-	return jsonify([])
+		subscriber.add(from_num)
+	print('Subscribers: ' + subscribers)
+	resp.message('Thank you! You will now receive for nearby incidents.')
+	return str(resp)
 
 def parse_event(event):
 	type = event['attributes']['TYP_ENG'].capitalize()
