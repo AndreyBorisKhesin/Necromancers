@@ -2,6 +2,18 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import {VicinityPage} from "../vicinity/vicinity";
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker
+} from '@ionic-native/google-maps';
+import { CommentsPage } from '../comments/comments';
+
+declare var google;
 
 @Component({
 	selector: 'page-comments',
@@ -18,6 +30,10 @@ export class CommentsPage {
 	maj_int: any;
 	comments: Array<{name: any, time: any, text: any}>;
 	posted_comment : {name: any, text: any};
+	loc: any;
+	map: any;
+	marker: any;
+	locmarker: any;
 
 	constructor(private http: Http, public navCtrl: NavController, public navParams: NavParams) {
 		this.lat = 43.6565064;
@@ -67,7 +83,6 @@ export class CommentsPage {
 				time: args['time'],
 				text: args['text'],
 			}
-			this.comments.push(item)
 		}
 	}
 
