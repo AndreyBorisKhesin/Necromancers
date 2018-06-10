@@ -15,9 +15,9 @@ CORS(app)
 database = {}
 comments = {}
 new_event_id = -1
-subscribers = {"Sample user": {
+subscribers = {"+16475153544": {
 	"contact": {"type": "phone",
-		"number": "Sample here"},
+		"number": "+16475153544"},
 	"options": {"types": "all"}}}
 # This has a sample user.
 # They want to be alerted via text, for all crimes that occur.
@@ -38,7 +38,7 @@ def alert(subscriber, event_id):
 	text = "Alert: A new crime ({type}) has been reported at {time} and {place}."
 	pass
 
-def add_event(event_tuple):
+def add_event(event_tuple, no_alert=True):
 	if event_tuple[4] in database:
 		return event_tuple[4]
 
@@ -48,8 +48,9 @@ def add_event(event_tuple):
 	if event_tuple[4] not in comments:
 		comments[event_tuple[4]] = []
 
-	for subscriber in subscribers:
-		alert(subscriber, event_tuple[4])
+	if not no_alert:
+		for subscriber in subscribers:
+			alert(subscriber, event_tuple[4])
 	return event_tuple[4]
 
 @app.route('/', methods = ['POST'])
@@ -150,6 +151,14 @@ def report_event():
 	new_event_id -= 1
 	return jsonify([])
 
+@app.route('/sms', methods = ['POST'])
+def sms_process():
+	data = loads(request.data.decode('utf-8'))
+	from_num = data.get('From', None)
+	if from_num is not None:
+		subscribers[from_num] = {}
+	return jsonify([])
+
 def parse_event(event):
 	type = event['attributes']['TYP_ENG'].capitalize()
 	lat = event['geometry']['y']
@@ -158,7 +167,7 @@ def parse_event(event):
 	id = event['attributes']['OBJECTID']
 	return (type, time, lat, long, id)
 
-def scrape():
+def scrape(no_alert=False):
 	global database
 	with app.app_context():
 		url = "http://c4s.torontopolice.on.ca/arcgis/rest/services/CADPublic/C4S/MapServer/0/query?f=json&where=1%3d1&outfields=*&outSR=4326"
@@ -166,11 +175,11 @@ def scrape():
 		print("--------")
 		print(datetime.datetime.now())
 		for result in results['features']:
-			add_event(parse_event(result))
+			add_event(parse_event(result), no_alert)
 
 @app.before_first_request
 def init_scraper():
-	scrape()
+	scrape(no_alert=True)
 	apsched = BackgroundScheduler()
 	apsched.start()
 
