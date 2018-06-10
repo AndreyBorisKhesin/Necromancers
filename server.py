@@ -88,7 +88,7 @@ def incidents():
 		}, {
 			'dist_from_you': 4,
 			'emerg_type': 'Holding one with trouble',
-			'time': '10:14 AM'
+			'time': '10:14 AM',
 			'date': 'Jun 10 2018'
 		}])
 
