@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {Http} from '@angular/http';
 import {
 	GoogleMaps,
 	GoogleMap,
@@ -30,50 +31,56 @@ export class SafepathPage {
 	marker: any;
 	locmarker: any;
 
-	constructor(public navCtrl: NavController) {
+	constructor(private http: Http, public navCtrl: NavController) {
 		this.alat = 43.6565064;
 		this.alng = -79.3806653;
 		this.dest = new google.maps.LatLng(this.blat, this.blng);
 		this.directionsService = new google.maps.DirectionsService();
 	}
 
-	ionViewDidLoad() {
-		this.drawInitialMap();
+	ionViewWillEnter() {
+		this.http.post('https://109dcaa9.ngrok.io/incidents', {
+			'lat': this.alat,
+			'lng': this.alng
+		}).toPromise().then(data => {
+			this.drawInitialMap();
+		}).catch(error => {
+			console.error('An error occurred in HomePage', error);
+			return Promise.reject(error.message || error);
+		});
 	}
 
 	drawInitialMap() {
+		this.alat = 43.6565064;
+		this.alng = -79.3806653;
 		this.loc = new google.maps.LatLng(this.alat, this.alng);
 		let mapOptions = {
 			zoom: 14,
-			center: new google.maps.LatLng(this.alat, this.alng)
+			center: this.loc
 		}
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-		this.addMarker()
+		this.marker = this.addMarker(this.alat, this.alng);
+		this.addInfoWindow(this.marker, "You Are Here");
 		this.locmarker = new google.maps.Marker(this.loc);
-
+		google.maps.event.trigger('resize', this.map);
 	}
 
-	addMarker(){
-
+	addMarker(lat, lng) {
 		let marker = new google.maps.Marker({
 			map: this.map,
 			animation: google.maps.Animation.DROP,
-			position: this.map.getCenter()
+			position: new google.maps.LatLng(lat, lng)
 		});
-
-		let content = "You are here!";
-
-		this.addInfoWindow(marker, content);
-
+		return marker;
 	}
 
 	addInfoWindow(marker, content){
-
-		let infoWindow = new google.maps.InfoWindow({
-			content: content
+		var infowindow = new google.maps.InfoWindow({
+			 content: '<div >' + content + '</div>'
 		});
 
-		google.maps.event.addListener(marker, 'click', () => {
+		marker.addListener('click', function() {
+			infowindow.open(this.map, marker);
 		});
 	}
 
