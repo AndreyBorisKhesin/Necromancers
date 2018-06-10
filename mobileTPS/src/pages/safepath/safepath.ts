@@ -133,13 +133,13 @@ export class SafepathPage {
 
 	drawMap() {
 		this.loc = new google.maps.LatLng(this.alat, this.alng);
-		this.initialize(function(loc: any, dest: any, directionsDisplay: any, directionsService: any, map: any, callback) {
+		this.initialize(function(loc: any, dest: any, directionsDisplay: any, directionsService: any, map: any, callback, waypts: any) {
 			let request = {
 				origin: loc,
 				destination: dest,
-				travelMode: 'WALKING',
-        waypoints: this.waypts,
-        optimizeWaypoints: false
+				waypoints: waypts,
+				optimizeWaypoints: false,
+				travelMode: 'WALKING'
 			};
 			directionsService.route(request, function(result, status) {
 				if (status == 'OK') {
@@ -180,7 +180,10 @@ export class SafepathPage {
 	}
 
 	initialize(callback) {
-		this.directionsDisplay = new google.maps.DirectionsRenderer();
+		this.directionsDisplay = new google.maps.DirectionsRenderer({
+			suppressMarkers: true,
+			suppressInfoWindows: true
+		});
 		let mapOptions = {
 			zoom: 14,
 			center: new google.maps.LatLng((this.alat + this.blat) / 2, (this.alng + this.blng) / 2)
@@ -194,10 +197,16 @@ export class SafepathPage {
 			var loc = new google.maps.LatLng(lat, lng);
 			this.locmarker = new google.maps.Marker(loc);
 		}
+		this.marker = this.addMarker(this.alat, this.alng);
+		this.addInfoWindow(this.marker, "You Are Here");
+		this.locmarker = new google.maps.Marker(this.loc);
+		this.marker = this.addMarker(this.blat, this.blng);
+		this.addInfoWindow(this.marker, "You Are Here");
+		this.locmarker = new google.maps.Marker(this.loc);
 		this.directionsDisplay.setMap(this.map);
 		callback(this.loc, this.dest, this.directionsDisplay, this.directionsService, this.map, function(map: any) {
 			google.maps.event.trigger('resize', map);
-		});
+		}, this.waypts);
 	}
 
 	getDestination(keyPressed, callback) {
