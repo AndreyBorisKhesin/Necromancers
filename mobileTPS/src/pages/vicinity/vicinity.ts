@@ -37,8 +37,8 @@ export class VicinityPage {
 	}
 
 	numbers() {
-		this.lat = 43.6565064;
-		this.lng = -79.3806653;
+		this.lat = 43.6576163;
+		this.lng = -79.3812037;
 		this.n = 20;
 		this.items = [];
 	}
@@ -80,7 +80,7 @@ export class VicinityPage {
 
 	addInfoWindow(marker, content){
 		var infowindow = new google.maps.InfoWindow({
-			 content: '<div >' + content + '</div>'
+			content: '<div >' + content + '</div>'
 		});
 
 		marker.addListener('click', function() {
@@ -145,7 +145,7 @@ export class VicinityPage {
 				time: args['time'],
 				maj_int: args['maj_int'],
 				event_id: args['id'],
-        date: args['date']
+				date: args['date']
 			}
 			this.items.push(item)
 			let marker = this.addMarker(args['lat'], args['lng']);

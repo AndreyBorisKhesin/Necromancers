@@ -40,8 +40,8 @@ export class CommentsPage {
 	}
 
 	numbers() {
-		this.lat = 43.6565064;
-		this.lng = -79.3806653;
+		this.lat = 43.6576163;
+		this.lng = -79.3812037;
 		this.id = this.navParams.get('id');
 		this.comments = []
 		this.posted_comment = {name: "", text: "", date:"", time: ""};
