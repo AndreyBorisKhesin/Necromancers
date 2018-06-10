@@ -50,16 +50,6 @@ export class HomePage {
 		});
 	}
 
-	doRefresh(refresher) {
-		this.numbers();
-		this.loadIncidents();
-		
-		setTimeout(() => {
-			console.log('Async operation has ended');
-			refresher.complete();
-		}, 2000);
-	}
-
 	incidents(argslist: any) {
 		this.items = []
 		for (let i = 0; i < Math.min(this.n, argslist.length); i++) {
