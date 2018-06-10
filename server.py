@@ -61,7 +61,7 @@ def incidents():
 	data = loads(request.data.decode('utf-8'))
 	n = data.get('n', 10)
 	vlist = sorted(map(lambda x: (
-			distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
+			distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[6]).total_seconds() / 18,
 			distance((data['lat'],data['lng']),x),
 			x),
 		database.values()))
@@ -97,7 +97,7 @@ def incident_data():
 		# TODO: What to return in case of an error?
 		return jsonify([])
 	event_data = (lambda x: (
-		distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
+		distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[6]).total_seconds() / 18,
 		distance((data['lat'],data['lng']),x),
 		x))(database[event_id])
 	return jsonify((lambda x: {
@@ -145,8 +145,8 @@ def report_event():
 	text = data.get('text', None)
 	lat = data['lat']
 	lng = data['lng']
-	date = data.get('date', datetime.datetime.now.strftime("%I:%M %p")
-	add_event((type, time, lat, lng, new_event_id, date))
+	date = data.get('date', datetime.datetime.now().strftime("%I:%M %p"))
+	add_event((type, time, lat, lng, new_event_id, date, datetime.datetime.now()))
 	if text is not None:
 		time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
 		comments[new_event_id].append({'name': name, 'time': time, 'text': text})
@@ -168,10 +168,11 @@ def parse_event(event):
 	type = event['attributes']['TYP_ENG'].capitalize()
 	lat = event['geometry']['y']
 	long = event['geometry']['x']
-	time = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%b %d %Y")
+	dt = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%Y.%m.%d %H:%M:%S")
+	time = dt.time()
 	id = event['attributes']['OBJECTID']
-	date = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%I:%M %p")
-	return (type, time, lat, long, id, date)
+	date = dt.date()
+	return (type, time, lat, long, id, date, dt)
 
 def scrape(no_alert=False):
 	global database
