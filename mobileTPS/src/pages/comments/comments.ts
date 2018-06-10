@@ -91,9 +91,9 @@ export class CommentsPage {
 				name: args['name'],
 				time: args['time'],
 				text: args['text'],
-        date: args['date']
+				date: args['date']
 			}
-      this.comments.push(item)
+			this.comments.push(item)
 		}
 	}
 
@@ -102,8 +102,11 @@ export class CommentsPage {
 			'name': this.posted_comment.name,
 			'text': this.posted_comment.text,
 			'id': this.id,
-      'time': this.posted_comment.time,
-      'date': this.posted_comment.date
+			'time': this.posted_comment.time,
+			'date': this.posted_comment.date
 		}).toPromise();
+		this.loadIncidents();
+		this.posted_comment.name = "";
+		this.posted_comment.text = "";
 	}
 }
