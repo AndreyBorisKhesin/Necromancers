@@ -15,7 +15,12 @@ CORS(app)
 database = {}
 comments = {}
 new_event_id = -1
-subscribers = {}
+subscribers = {"Sample user": {
+	"contact": {"type": "phone",
+		"number": "Sample here"},
+	"options": {"types": "all"}}}
+# This has a sample user.
+# They want to be alerted via text, for all crimes that occur.
 
 def distance(loc, event):
 	x_loc = loc[0]
@@ -30,6 +35,7 @@ def alert(subscriber, event_id):
 	# Parse the subscriber's notification preferences.
 	# Then, send them an alert if the event satisifes it,
 	# in the desired format for them.
+	text = "Alert: A new crime ({type}) has been reported at {time} and {place}."
 	pass
 
 def add_event(event_tuple):
@@ -164,6 +170,7 @@ def scrape():
 
 @app.before_first_request
 def init_scraper():
+	scrape()
 	apsched = BackgroundScheduler()
 	apsched.start()
 
