@@ -41,15 +41,11 @@ export class SafepathPage {
 				43.6576616, -79.3790312];
 
 	constructor(private http: Http, public navCtrl: NavController) {
-		this.alat = 43.6565064;
-		this.alng = -79.3806653;
+		this.alat = 43.6576163;
+		this.alng = -79.3812037;
 		this.dest = new google.maps.LatLng(this.blat, this.blng);
 		this.directionsService = new google.maps.DirectionsService();
 		this.waypts = [
-      {
-        location: new google.maps.LatLng(43.6565064, -79.3806653),
-        stopover: true
-      },
       {
         location: new google.maps.LatLng(43.657312, -79.3844062),
         stopover: true
@@ -78,8 +74,6 @@ export class SafepathPage {
 	}
 
 	drawInitialMap() {
-		this.alat = 43.6565064;
-		this.alng = -79.3806653;
 		this.loc = new google.maps.LatLng(this.alat, this.alng);
 		let mapOptions = {
 			zoom: 15,
@@ -148,35 +142,6 @@ export class SafepathPage {
 			});
 			callback(map);
 		});
-	}
-
-	loadMap() {
-
-		let mapOptions: GoogleMapOptions = {
-			camera: {
-				target: {
-					lat: 43.0741904,
-					lng: -79.3809802
-				},
-				zoom: 14,
-				tilt: 30
-			}
-		};
-
-		this.map = GoogleMaps.create('map_canvas', mapOptions);
-
-		this.marker = this.map.addMarkerSync({
-			title: 'Ionic',
-			icon: 'blue',
-			animation: 'DROP',
-			position: {
-				lat: 43.0741904,
-				lng: -79.3809802
-			}
-		});
-		// marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-		//	 alert('clicked');
-		// });
 	}
 
 	initialize(callback) {

@@ -51,7 +51,7 @@ def add_event(event_tuple, no_alert=True):
 	if event_tuple[4] not in comments:
 		comments[event_tuple[4]] = []
 
-	dist = distance([43.6565064, -79.3810757], [0, 0, event_tuple[2], event_tuple[3]])
+	dist = distance([43.6576163,-79.3812037], [0, 0, event_tuple[2], event_tuple[3]])
 	if not no_alert and dist < 0:
 		for subscriber in subscribers:
 			alert(subscriber, event_tuple, dist)
@@ -155,7 +155,7 @@ def report_event():
 		date = dt.strftime("%b %d %Y")
 		comments[new_event_id].append({'name': name, 'time': time, 'date': date, 'text': text})
 	new_event_id -= 1
-	return jsonify([])
+	return jsonify({'id': new_event_id+1})
 
 @app.route('/', methods = ['POST'])
 def sms_process():
