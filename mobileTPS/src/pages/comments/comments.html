@@ -8,19 +8,18 @@
 </ion-header>
 
 <ion-content>
-<div padding>
+<div padding class="pad_sides_more">
   <!--TPS Info -->
   <h4><u>Details on "{{this.emerg_type}}"</u></h4>
   <ion-card-content>
     <p class="black"><b>Incident ID: </b>{{this.id}}</p>
     <p class="black"><b>Time: </b> {{this.time}}</p>
+    <h6><u>Updates</u></h6>
     <p class="black"> There are currently no updates on this incident.</p>
   </ion-card-content>
-</div>
 
   <!-- Incidents -->
-  <div class="pad_sides_more">
-    <h6><u>Further details</u></h6>
+      <h6>Comments:</h6>
   <ion-card *ngFor="let comment of comments">
     <ion-card-content>
       <span class="black"><b>{{comment.name}} said:</b></span>
