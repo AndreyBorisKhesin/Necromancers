@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
-import {VicinityPage} from "../vicinity/vicinity";
+
 import {
   GoogleMaps,
   GoogleMap,
@@ -35,30 +35,38 @@ export class CommentsPage {
 	locmarker: any;
 
 	constructor(private http: Http, public navCtrl: NavController, public navParams: NavParams) {
+		this.numbers();
+	}
+
+	numbers() {
 		this.lat = 43.6565064;
 		this.lng = -79.3806653;
-		this.id = navParams.get('id');
+		this.id = this.navParams.get('id');
 		this.comments = []
 		this.posted_comment = {name: "", text: ""};
 	}
 
 	ionViewWillEnter() {
+		this.loadIncidents();
+	}
+
+	loadIncidents() {
 		this.http.post('https://109dcaa9.ngrok.io/incident_data', {
 			'lat': this.lat,
 			'lng': this.lng,
 			'id': this.id
 		}).toPromise().then(data => {
-			this.incident_data(data.json())
-		}).catch(error => {
-			console.error('An error occurred in CommentPage', error);
-			return Promise.reject(error.message || error);
-		});
-		this.http.post('https://109dcaa9.ngrok.io/comments', {
-			'lat': this.lat,
-			'lng': this.lng,
-			'id': this.id
-		}).toPromise().then(data => {
-			this.parse_comments(data.json())
+			this.incident_data(data.json());
+			this.http.post('https://109dcaa9.ngrok.io/comments', {
+				'lat': this.lat,
+				'lng': this.lng,
+				'id': this.id
+			}).toPromise().then(data => {
+				this.parse_comments(data.json());
+			}).catch(error => {
+				console.error('An error occurred in CommentPage', error);
+				return Promise.reject(error.message || error);
+			});
 		}).catch(error => {
 			console.error('An error occurred in CommentPage', error);
 			return Promise.reject(error.message || error);

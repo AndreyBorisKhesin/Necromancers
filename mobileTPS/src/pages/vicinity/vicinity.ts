@@ -33,6 +33,10 @@ export class VicinityPage {
 	marker: any;
 
 	constructor(private http: Http, public navCtrl: NavController) {
+		this.numbers();
+	}
+
+	numbers() {
 		this.lat = 43.6565064;
 		this.lng = -79.3806653;
 		this.n = 10;
@@ -40,6 +44,10 @@ export class VicinityPage {
 	}
 
 	ionViewWillEnter() {
+		this.loadIncidents();
+	}
+
+	loadIncidents() {
 		this.http.post('https://109dcaa9.ngrok.io/incidents', {
 			'lat': this.lat,
 			'lng': this.lng

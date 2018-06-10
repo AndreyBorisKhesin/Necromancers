@@ -1,21 +1,19 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>View Vicinity</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>View Vicinity</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <div class="fixed">
-  <h5 class="center">Reported Incidents Near You</h5>
+	<h5 class="center">Reported Incidents Near You</h5>
 
-  <div id="map"></div>
+	<div id="map"></div>
 </div>
 
 <ion-content padding>
-
-
   <div class="page__content-container">
   <ion-card *ngFor="let item of items">
     <ion-card-content>
@@ -29,5 +27,19 @@
     </ion-card-content>
   </ion-card>
   </div>
+
+	<div class="page__content-container">
+	<ion-card *ngFor="let item of items">
+		<ion-card-content>
+			<p class="black"><b>Date and Time:</b> {{item.time}}</p>
+			<p class="black"><b>Incident Type:</b> {{item.emerg_type}}</p>
+			<!-- <p class="black"><b>Nearest Major Intersection:</b> {{item.maj_int}}</p> -->
+			<p class="black"> {{item.dist_from_you}} meters from you</p>
+		<button ion-item (click)="see_comments($event, item.event_id)">
+			See more details
+		</button>
+		</ion-card-content>
+	</ion-card>
+	</div>
 
 </ion-content>
