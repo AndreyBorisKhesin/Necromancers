@@ -51,7 +51,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Date</ion-label>
-      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMMM DDDD YYYY" [(ngModel)]="date"
+      <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="MMM DD YYYY" [(ngModel)]="date"
                     monthShortNames="Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec"
                     placeholder="Choose">
 
@@ -59,7 +59,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Time</ion-label>
-      <ion-datetime displayFormat="hh:mm a" pickerFormat="hh mm a" placeholder="Choose"></ion-datetime>
+      <ion-datetime displayFormat="hh:mm a" pickerFormat="hh:mm a" [(ngModel)]="time" placeholder="Choose"></ion-datetime>
     </ion-item>
 
     <ion-item>

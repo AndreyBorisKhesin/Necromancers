@@ -108,7 +108,7 @@ export class SafepathPage {
 	addHeatMarker(lat, lng) {
 		let marker = new google.maps.Marker({
 			map: this.map,
-			icon: '../../assets/icon/circle.png',
+			icon: 'assets/icon/circle.png',
 			animation: google.maps.Animation.DROP,
 			position: new google.maps.LatLng(lat, lng)
 		});
