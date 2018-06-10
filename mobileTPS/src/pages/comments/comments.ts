@@ -11,7 +11,6 @@ import {
   MarkerOptions,
   Marker
 } from '@ionic-native/google-maps';
-import { CommentsPage } from '../comments/comments';
 
 declare var google;
 
@@ -83,6 +82,7 @@ export class CommentsPage {
 				time: args['time'],
 				text: args['text'],
 			}
+      this.comments.push(item)
 		}
 	}
 
@@ -93,40 +93,4 @@ export class CommentsPage {
 			'id': this.id
 		}).toPromise();
 	}
-
-  // ionViewDidLoad() {
-  //   this.drawInitialMap();
-  // }
-
-  addMarker(lat, lng) {
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: new google.maps.LatLng(lat, lng)
-    });
-    return marker;
-  }
-
-  addInfoWindow(marker, content){
-    var infowindow = new google.maps.InfoWindow({
-      content: '<div >' + content + '</div>'
-    });
-
-    marker.addListener('click', function() {
-      infowindow.open(this.map, marker);
-    });
-  }
-
-  drawInitialMap() {
-    this.loc = new google.maps.LatLng(this.lat, this.lng);
-
-    let mapOptions = {
-      zoom: 14,
-      center: new google.maps.LatLng(this.lat, this.lng)
-    }
-    this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    this.marker = this.addMarker(this.lat, this.lng);
-    this.addInfoWindow(this.marker, "You Are Here");
-    this.locmarker = new google.maps.Marker(this.loc);
-  }
 }

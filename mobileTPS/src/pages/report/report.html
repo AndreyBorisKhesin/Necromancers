@@ -17,7 +17,7 @@
 
     <ion-item>
       <ion-label stacked>Full Name</ion-label>
-      <ion-input type="name" value="Keena Shang"></ion-input>
+      <ion-input type="report.name" value="Keena Shang"></ion-input>
     </ion-item>
 
     <ion-item>
@@ -41,7 +41,7 @@
 
     <ion-item>
       <ion-label>Incident Type</ion-label>
-      <ion-select [(ngModel)]="in_type" multiple="false">
+      <ion-select [(ngModel)]="report.type" multiple="false">
         <ion-option value="missingPerson">Missing Person</ion-option>
         <ion-option value="violentCrime">Violent Crime</ion-option>
         <ion-option value="theft">Theft</ion-option>
@@ -69,10 +69,11 @@
 
     <ion-item>
       <ion-label stacked>Additional Details</ion-label>
-      <ion-textarea rows="3" placeholder="e.g. broken windows, suspect description" text-size="small"></ion-textarea>
+      <ion-textarea rows="3" placeholder="e.g. broken windows, suspect description" text-size="small" [(ngModel)]="report.text"></ion-textarea>
     </ion-item>
 
-
-
+    <button ion-button (click)="send($event)">
+      <ion-icon name="send"></ion-icon>
+    </button>
   </ion-list>
 </ion-content>

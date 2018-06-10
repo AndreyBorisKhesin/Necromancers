@@ -14,6 +14,7 @@ CORS(app)
 
 database = {}
 comments = {}
+new_event_id = -1
 
 def distance(loc, event):
 	x_loc = loc[0]
@@ -103,6 +104,24 @@ def post_comment():
 		comments[event_id] = []
 	comments[event_id].append({'name': name, 'time': time, 'text': content})
 	return jsonify(comments[event_id])
+
+@app.route('/report', methods = ['POST'])
+def report_event():
+	global new_event_id
+	data = loads(request.data.decode('utf-8'))
+	name = data.get('name', 'Not Provided')
+	time = data.get('time', datetime.datetime.now())
+	type = data.get('type', 'Unknown').capitalize()
+	text = data.get('text', None)
+	lat = data['lat']
+	lng = data['lng']
+	database[new_event_id] = (type, time, lat, lng, new_event_id)
+	comments[new_event_id] = []
+	if text is not None:
+		time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
+		comments[new_event_id].append({'name': name, 'time': time, 'text': text})
+	new_event_id -= 1
+	return jsonify([])
 
 def parse_event(event):
 	type = event['attributes']['TYP_ENG'].capitalize()
