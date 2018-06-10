@@ -39,7 +39,7 @@ export class VicinityPage {
 	numbers() {
 		this.lat = 43.6565064;
 		this.lng = -79.3806653;
-		this.n = 10;
+		this.n = 20;
 		this.items = [];
 	}
 
