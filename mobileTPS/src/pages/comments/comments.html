@@ -38,8 +38,9 @@
 
     <ion-item>
       <ion-label stacked>Additional Details</ion-label>
-      <ion-input type="location" placeholder="e.g. broken windows, suspect description" text-size="small" [(ngModel)]="posted_comment.text"></ion-input>
+      <ion-textarea rows="3" placeholder="e.g. broken windows, suspect description" text-size="small" [(ngModel)]="posted_comment.text"></ion-textarea>
     </ion-item>
+
     <button ion-button (click)="send($event)">
       <ion-icon name="send"></ion-icon>
     </button>
