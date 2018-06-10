@@ -30,9 +30,15 @@ export class SafepathPage {
 	destination: any;
 	marker: any;
 	locmarker: any;
-  points: number[] = [43.6592283, -79.3831013, // bed bath & beyond
-                      43.6594032, -79.3820121];
   waypts: any;
+
+	points: number[] = [	43.6598611, -79.3785907, // bed bath & beyond
+				43.6613693, -79.3832247,
+				43.6565006, -79.3772478,
+				43.6573143, -79.3875618,
+				43.6644121, -79.3924746,
+				43.6651592, -79.3789572,
+				43.6576616, -79.3790312];
 
 	constructor(private http: Http, public navCtrl: NavController) {
 		this.alat = 43.6565064;
@@ -76,7 +82,7 @@ export class SafepathPage {
 		this.alng = -79.3806653;
 		this.loc = new google.maps.LatLng(this.alat, this.alng);
 		let mapOptions = {
-			zoom: 14,
+			zoom: 15,
 			center: this.loc
 		}
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -84,17 +90,17 @@ export class SafepathPage {
 		this.addInfoWindow(this.marker, "You Are Here");
 		this.locmarker = new google.maps.Marker(this.loc);
 
-    for (var _i = 0; _i < this.points.length; _i = _i + 2) {
-      var lat = this.points[_i];
-      var lng = this.points[_i + 1];
-      var marker = this.addHeatMarker(lat, lng);
-      this.addInfoWindow(marker, "Stay clear");
-      var loc = new google.maps.LatLng(lat, lng);
-      this.locmarker = new google.maps.Marker(loc);
-    }
+		for (var _i = 0; _i < this.points.length; _i = _i + 2) {
+			var lat = this.points[_i];
+			var lng = this.points[_i + 1];
+			var marker = this.addHeatMarker(lat, lng);
+			this.addInfoWindow(marker, "Stay clear");
+			var loc = new google.maps.LatLng(lat, lng);
+			this.locmarker = new google.maps.Marker(loc);
+		}
 
-    google.maps.event.trigger('resize', this.map);
-  }
+		google.maps.event.trigger('resize', this.map);
+	}
 
 	addMarker(lat, lng) {
 		let marker = new google.maps.Marker({
@@ -105,15 +111,15 @@ export class SafepathPage {
 		return marker;
 	}
 
-  addHeatMarker(lat, lng) {
-    let marker = new google.maps.Marker({
-      map: this.map,
-      icon: '../../assets/icon/circle.png',
-      animation: google.maps.Animation.DROP,
-      position: new google.maps.LatLng(lat, lng)
-    });
-    return marker;
-  }
+	addHeatMarker(lat, lng) {
+		let marker = new google.maps.Marker({
+			map: this.map,
+			icon: '../../assets/icon/circle.png',
+			animation: google.maps.Animation.DROP,
+			position: new google.maps.LatLng(lat, lng)
+		});
+		return marker;
+	}
 
 	addInfoWindow(marker, content){
 		var infowindow = new google.maps.InfoWindow({
@@ -180,6 +186,14 @@ export class SafepathPage {
 			center: new google.maps.LatLng((this.alat + this.blat) / 2, (this.alng + this.blng) / 2)
 		}
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+		for (var _i = 0; _i < this.points.length; _i = _i + 2) {
+			var lat = this.points[_i];
+			var lng = this.points[_i + 1];
+			var marker = this.addHeatMarker(lat, lng);
+			this.addInfoWindow(marker, "Stay clear");
+			var loc = new google.maps.LatLng(lat, lng);
+			this.locmarker = new google.maps.Marker(loc);
+		}
 		this.directionsDisplay.setMap(this.map);
 		callback(this.loc, this.dest, this.directionsDisplay, this.directionsService, this.map, function(map: any) {
 			google.maps.event.trigger('resize', map);
