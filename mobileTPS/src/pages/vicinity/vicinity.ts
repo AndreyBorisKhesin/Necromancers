@@ -35,7 +35,7 @@ export class VicinityPage {
 	constructor(private http: Http, public navCtrl: NavController) {
 		this.lat = 43.6565064;
 		this.lng = -79.3806653;
-		this.n = 5;
+		this.n = 10;
 		this.items = [];
 	}
 

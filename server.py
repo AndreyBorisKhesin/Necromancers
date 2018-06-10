@@ -55,7 +55,7 @@ def root():
 @app.route('/incidents', methods = ['POST'])
 def incidents():
 	data = loads(request.data.decode('utf-8'))
-	n = data.get('n',5)
+	n = data.get('n', 10)
 	vlist = sorted(map(lambda x: (
 			distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
 			distance((data['lat'],data['lng']),x),
