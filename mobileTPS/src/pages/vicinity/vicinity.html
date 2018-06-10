@@ -18,7 +18,7 @@
       <p class="black"><b>Incident Type:</b> {{item.emerg_type}}</p>
       <!-- <p class="black"><b>Nearest Major Intersection:</b> {{item.maj_int}}</p> -->
       <p class="black"> {{item.dist_from_you}} meters from you</p>
-    <button ion-item (click)="see_comments($event, item.id)">
+    <button ion-item (click)="see_comments($event, item.event_id)">
       See more details
     </button>
     </ion-card-content>

@@ -29,7 +29,7 @@ export class CommentsPage {
 		this.http.post('https://109dcaa9.ngrok.io/incident_data', {
 			'lat': this.lat,
 			'lng': this.lng,
-			'n': this.id
+			'id': this.id
 		}).toPromise().then(data => {
 			this.incident_data(data.json())
 		}).catch(error => {
@@ -39,7 +39,7 @@ export class CommentsPage {
 		this.http.post('https://109dcaa9.ngrok.io/comments', {
 			'lat': this.lat,
 			'lng': this.lng,
-			'n': this.id
+			'id': this.id
 		}).toPromise().then(data => {
 			this.parse_comments(data.json())
 		}).catch(error => {

@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Comments on {{this.event_type}}</ion-title>
+    <ion-title>Comments on {{this.id}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -21,12 +21,9 @@
 
     <ion-card-content>
       <span class="black"><b>{{comment.name}} said:</b></span>
-      {{comment.text}}
+      <span>{{comment.text}}</span>
       <span class="gray"><b>{{comment.time}}</b></span>
-      <p class="black"><b>Date and Time:</b> {{item.time}}</p>
-      <p class="black"><b>Incident Type:</b> {{item.emerg_type}}</p>
       <!-- <p class="black"><b>Nearest Major Intersection:</b> {{item.maj_int}}</p> -->
-      <span class="black"> {{item.dist_from_you}} m from you</span>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -101,7 +101,7 @@ def post_comment():
 		return jsonify([])
 	elif event_id not in comments:
 		comments[event_id] = []
-	comments[event_id].append({'name': name, 'time': time, 'content': content})
+	comments[event_id].append({'name': name, 'time': time, 'text': content})
 	return jsonify(comments[event_id])
 
 def parse_event(event):
