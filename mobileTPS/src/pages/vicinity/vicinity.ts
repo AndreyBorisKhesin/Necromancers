@@ -130,13 +130,14 @@ export class VicinityPage {
 		this.locmarker = new google.maps.Marker(this.loc);
 		for (let i = 0; i < this.n; i++) {
 			let args = argslist[i];
-			let item: { dist_from_you: any, emerg_type: any, time: any, maj_int: any, event_id: number };
+			let item: { dist_from_you: any, emerg_type: any, time: any, maj_int: any, event_id: number, date: any };
 			item = {
 				dist_from_you: args['dist_from_you'],
 				emerg_type: args['emerg_type'],
 				time: args['time'],
 				maj_int: args['maj_int'],
 				event_id: args['id'],
+        date: args['date']
 			}
 			this.items.push(item)
 			let marker = this.addMarker(args['lat'], args['lng']);

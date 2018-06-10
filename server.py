@@ -33,7 +33,7 @@ def distance(loc, event):
 def alert(subscriber, event_id):
 	# Alert the given subscriber to an event that happened.
 	# Parse the subscriber's notification preferences.
-	# Then, send them an alert if the event satisifes it,
+	# Then, send them an alert if the event satisfies it,
 	# in the desired format for them.
 	text = "Alert: A new crime ({type}) has been reported at {time} and {place}."
 	pass
@@ -72,21 +72,24 @@ def incidents():
 		return jsonify(list(map(lambda x: {
 				'dist_from_you':int(x[1]),
 				'emerg_type': x[2][0],
-				'time': x[2][1].strftime("%Y.%m.%d %H:%M:%S"),
+				'time': x[2][1].strftime("%I:%M %p"),
 				'lat': x[2][2],
 				'lng': x[2][3],
 				'id': x[2][4],
+				'date': x[2][5].strftime("%b %d %Y")
 			},
 			vlist[:n])))
 	else:
 		return jsonify([{
 			'dist_from_you': 1,
 			'emerg_type': 'Breaking and entering',
-			'time': '12:56 PM'
+			'time': '12:56 PM',
+			'date': 'Jun 10 2018'
 		}, {
 			'dist_from_you': 4,
 			'emerg_type': 'Holding one with trouble',
 			'time': '10:14 AM'
+			'date': 'Jun 10 2018'
 		}])
 
 @app.route('/incident_data', methods = ['POST'])
@@ -103,10 +106,11 @@ def incident_data():
 	return jsonify((lambda x: {
 				'dist_from_you':int(x[1]),
 				'emerg_type': x[2][0],
-				'time': x[2][1].strftime("%Y.%m.%d %H:%M:%S"),
+				'time': x[2][1].strftime("%I:%M %p"),
 				'lat': x[2][2],
 				'lng': x[2][3],
 				'id': x[2][4],
+				'date': x[2][5].strftime("%b %d %Y")
 			})(event_data))
 
 @app.route('/comments', methods = ['POST'])
