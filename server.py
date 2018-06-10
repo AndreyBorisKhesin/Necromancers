@@ -15,6 +15,7 @@ CORS(app)
 database = {}
 comments = {}
 new_event_id = -1
+subscribers = {}
 
 def distance(loc, event):
 	x_loc = loc[0]
@@ -23,6 +24,27 @@ def distance(loc, event):
 	y_event = event[3]
 	sq = lambda x: x*x
 	return math.sqrt(sq((x_loc - x_event) * 1000000 / 9) + sq((y_loc - y_event) * 80392.3585722))
+
+def alert(subscriber, event_id):
+	# Alert the given subscriber to an event that happened.
+	# Parse the subscriber's notification preferences.
+	# Then, send them an alert if the event satisifes it,
+	# in the desired format for them.
+	pass
+
+def add_event(event_tuple):
+	if event_tuple[4] in database:
+		return event_tuple[4]
+
+	print(event_tuple)
+	database[event_tuple[4]] = event_tuple
+
+	if event_tuple[4] not in comments:
+		comments[event_tuple[4]] = []
+
+	for subscriber in subscribers:
+		alert(subscriber, event_tuple[4])
+	return event_tuple[4]
 
 @app.route('/', methods = ['POST'])
 def root():
@@ -115,8 +137,7 @@ def report_event():
 	text = data.get('text', None)
 	lat = data['lat']
 	lng = data['lng']
-	database[new_event_id] = (type, time, lat, lng, new_event_id)
-	comments[new_event_id] = []
+	add_event((type, time, lat, lng, new_event_id))
 	if text is not None:
 		time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
 		comments[new_event_id].append({'name': name, 'time': time, 'text': text})
@@ -139,11 +160,7 @@ def scrape():
 		print("--------")
 		print(datetime.datetime.now())
 		for result in results['features']:
-			event = parse_event(result)
-			if event[4] not in database:
-				print(event)
-				database[event[4]] = event
-		# vlist = sorted(map(lambda x: (distance((43.657771,-79.381107),x), x), list(database)))
+			add_event(parse_event(result))
 
 @app.before_first_request
 def init_scraper():
