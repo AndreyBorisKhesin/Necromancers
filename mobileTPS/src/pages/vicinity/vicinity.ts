@@ -64,7 +64,7 @@ export class VicinityPage {
       }
     this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
     this.marker = this.addMarker(this.lat, this.lng);
-    this.addInfoWindow(this.marker, "You Are Here")
+    this.addInfoWindow(this.marker, "You Are Here");
     this.locmarker = new google.maps.Marker(this.loc);
 
   }

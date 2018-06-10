@@ -2,6 +2,18 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Http } from '@angular/http';
 import {VicinityPage} from "../vicinity/vicinity";
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker
+} from '@ionic-native/google-maps';
+import { CommentsPage } from '../comments/comments';
+
+declare var google;
 
 @Component({
 	selector: 'page-comments',
@@ -18,6 +30,10 @@ export class CommentsPage {
 	maj_int: any;
 	comments: Array<{name: any, time: any, text: any}>;
 	posted_comment : {name: any, text: any};
+	loc: any;
+	map: any;
+	marker: any;
+	locmarker: any;
 
 	constructor(private http: Http, public navCtrl: NavController, public navParams: NavParams) {
 		this.lat = 43.6565064;
@@ -67,7 +83,6 @@ export class CommentsPage {
 				time: args['time'],
 				text: args['text'],
 			}
-			this.comments.push(item)
 		}
 	}
 
@@ -78,4 +93,40 @@ export class CommentsPage {
 			'id': this.id
 		}).toPromise();
 	}
+
+  // ionViewDidLoad() {
+  //   this.drawInitialMap();
+  // }
+
+  addMarker(lat, lng) {
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: new google.maps.LatLng(lat, lng)
+    });
+    return marker;
+  }
+
+  addInfoWindow(marker, content){
+    var infowindow = new google.maps.InfoWindow({
+      content: '<div >' + content + '</div>'
+    });
+
+    marker.addListener('click', function() {
+      infowindow.open(this.map, marker);
+    });
+  }
+
+  drawInitialMap() {
+    this.loc = new google.maps.LatLng(this.lat, this.lng);
+
+    let mapOptions = {
+      zoom: 14,
+      center: new google.maps.LatLng(this.lat, this.lng)
+    }
+    this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    this.marker = this.addMarker(this.lat, this.lng);
+    this.addInfoWindow(this.marker, "You Are Here");
+    this.locmarker = new google.maps.Marker(this.loc);
+  }
 }
