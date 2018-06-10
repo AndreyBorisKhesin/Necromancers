@@ -62,7 +62,7 @@ export class VicinityPage {
 	addMarkerMe(lat, lng) {
 		let marker = new google.maps.Marker({
 			map: this.map,
-			icon: '../../assets/icon/blue-dot.png',
+			icon: 'assets/icon/blue-dot.png',
 			animation: google.maps.Animation.DROP,
 			position: new google.maps.LatLng(lat, lng)
 		});
