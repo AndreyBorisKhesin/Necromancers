@@ -65,7 +65,7 @@ def incidents():
 		return jsonify(list(map(lambda x: {
 				'dist_from_you':int(x[1]),
 				'emerg_type': x[2][0],
-				'time': x[2][1].strftime("%I:%M %p"),
+				'time': x[2][1].strftime("%Y.%m.%d %H:%M:%S"),
 				'lat': x[2][2],
 				'lng': x[2][3],
 				'id': x[2][4],
@@ -96,7 +96,7 @@ def incident_data():
 	return jsonify((lambda x: {
 				'dist_from_you':int(x[1]),
 				'emerg_type': x[2][0],
-				'time': x[2][1].strftime("%I:%M %p"),
+				'time': x[2][1].strftime("%Y.%m.%d %H:%M:%S"),
 				'lat': x[2][2],
 				'lng': x[2][3],
 				'id': x[2][4],
