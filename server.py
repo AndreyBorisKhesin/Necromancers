@@ -140,12 +140,13 @@ def report_event():
 	global new_event_id
 	data = loads(request.data.decode('utf-8'))
 	name = data.get('name', 'Not Provided')
-	time = data.get('time', datetime.datetime.now())
+	time = data.get('time', datetime.datetime.now().strftime("%b %d %Y"))
 	type = data.get('type', 'Unknown').capitalize()
 	text = data.get('text', None)
 	lat = data['lat']
 	lng = data['lng']
-	add_event((type, time, lat, lng, new_event_id))
+	date = data.get('date', datetime.datetime.now.strftime("%I:%M %p")
+	add_event((type, time, lat, lng, new_event_id, date))
 	if text is not None:
 		time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
 		comments[new_event_id].append({'name': name, 'time': time, 'text': text})
@@ -167,9 +168,10 @@ def parse_event(event):
 	type = event['attributes']['TYP_ENG'].capitalize()
 	lat = event['geometry']['y']
 	long = event['geometry']['x']
-	time = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%Y.%m.%d %H:%M:%S")
+	time = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%b %d %Y")
 	id = event['attributes']['OBJECTID']
-	return (type, time, lat, long, id)
+	date = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%I:%M %p")
+	return (type, time, lat, long, id, date)
 
 def scrape(no_alert=False):
 	global database
