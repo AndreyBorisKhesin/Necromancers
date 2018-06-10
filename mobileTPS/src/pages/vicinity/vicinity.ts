@@ -51,17 +51,14 @@ export class VicinityPage {
 		});
 	}
 
-	drawInitialMap() {
-		this.loc = new google.maps.LatLng(this.lat, this.lng);
-
-		let mapOptions = {
-			zoom: 14,
-			center: new google.maps.LatLng(this.lat, this.lng)
-		}
-		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-		this.marker = this.addMarker(this.lat, this.lng);
-		this.addInfoWindow(this.marker, "You Are Here")
-		this.locmarker = new google.maps.Marker(this.loc);
+	addMarkerMe(lat, lng) {
+		let marker = new google.maps.Marker({
+			map: this.map,
+			icon: '../../assets/icon/blue-dot.png',
+			animation: google.maps.Animation.DROP,
+			position: new google.maps.LatLng(lat, lng)
+		});
+		return marker;
 	}
 
 	addMarker(lat, lng) {
@@ -128,7 +125,7 @@ export class VicinityPage {
 			center: this.loc
 		}
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-		this.marker = this.addMarker(this.lat, this.lng);
+		this.marker = this.addMarkerMe(this.lat, this.lng);
 		this.addInfoWindow(this.marker, "You Are Here");
 		this.locmarker = new google.maps.Marker(this.loc);
 		for (let i = 0; i < this.n; i++) {
