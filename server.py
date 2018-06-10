@@ -52,7 +52,7 @@ def add_event(event_tuple, no_alert=True):
 		comments[event_tuple[4]] = []
 
 	dist = distance([43.6576163,-79.3812037], [0, 0, event_tuple[2], event_tuple[3]])
-	if not no_alert and dist < 0:
+	if not no_alert and dist < 10000: #RIGHT HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		for subscriber in subscribers:
 			alert(subscriber, event_tuple, dist)
 	return event_tuple[4]
