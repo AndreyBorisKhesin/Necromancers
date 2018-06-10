@@ -14,6 +14,7 @@
   <ion-card>
   <ion-card-content>
     <p class="black"><b>Time: </b> {{this.time}}</p>
+    <p class="black"><b>Date: </b> {{this.date}}</p>
     <h6><br><u>Updates</u></h6> <p class="light_gray">Last Updated {{this.time}}</p>
     <p class="black">There are currently no updates on this incident.</p>
   </ion-card-content>
@@ -25,7 +26,7 @@
     <ion-card-content>
       <span class="black"><b>{{comment.name}} said:</b></span>
       <span>{{comment.text}}</span>
-      <span class="grey">- {{comment.time}}</span>
+      <span class="grey">- {{comment.date}} at {{comment.time}}</span>
     </ion-card-content>
   </ion-card>
   </div>

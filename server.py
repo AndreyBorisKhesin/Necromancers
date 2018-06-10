@@ -27,7 +27,7 @@ def distance(loc, event):
 	sq = lambda x: x*x
 	return math.sqrt(sq((x_loc - x_event) * 1000000 / 9) + sq((y_loc - y_event) * 80392.3585722))
 
-def alert(subscriber, event_id):
+def alert(subscriber, event_tuple):
 	# Alert the given subscriber to an event that happened.
 	# Parse the subscriber's notification preferences.
 	# Then, send them an alert if the event satisfies it,
@@ -45,23 +45,17 @@ def add_event(event_tuple, no_alert=True):
 	if event_tuple[4] not in comments:
 		comments[event_tuple[4]] = []
 
-	if not no_alert:
+	if not no_alert and distance([43.6565064, -79.3810757], [event_tuple[2], event_tuple[3]]) < 30:
 		for subscriber in subscribers:
-			alert(subscriber, event_tuple[4])
+			alert(subscriber, event_tuple)
 	return event_tuple[4]
-
-@app.route('/', methods = ['POST'])
-def root():
-	resp = MessagingResponse()
-	resp.message('Your phone number is ' + request.values['From'] + '.')
-	return str(resp)
 
 @app.route('/incidents', methods = ['POST'])
 def incidents():
 	data = loads(request.data.decode('utf-8'))
 	n = data.get('n', 10)
 	vlist = sorted(map(lambda x: (
-			distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
+			distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[6]).total_seconds() / 18,
 			distance((data['lat'],data['lng']),x),
 			x),
 		database.values()))
@@ -97,7 +91,7 @@ def incident_data():
 		# TODO: What to return in case of an error?
 		return jsonify([])
 	event_data = (lambda x: (
-		distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[1]).total_seconds() / 18,
+		distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[6]).total_seconds() / 18,
 		distance((data['lat'],data['lng']),x),
 		x))(database[event_id])
 	return jsonify((lambda x: {
@@ -125,14 +119,16 @@ def post_comment():
 	data = loads(request.data.decode('utf-8'))
 	name = data.get('name', 'Not Provided')
 	# TODO: FIX TIME FORMAT
-	time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
+	dt = datetime.datetime.now()
+	time = dt.strftime("%I:%M %p")
+	date = dt.strftime("%b %d %Y")
 	content = data.get('text', "")
 	event_id = data.get('id', 0)
 	if event_id == 0:
 		return jsonify([])
 	elif event_id not in comments:
 		comments[event_id] = []
-	comments[event_id].append({'name': name, 'time': time, 'text': content})
+	comments[event_id].append({'name': name, 'time': time, 'date': date, 'text': content})
 	return jsonify(comments[event_id])
 
 @app.route('/report', methods = ['POST'])
@@ -145,33 +141,33 @@ def report_event():
 	text = data.get('text', None)
 	lat = data['lat']
 	lng = data['lng']
-	date = data.get('date', datetime.datetime.now.strftime("%I:%M %p")
-	add_event((type, time, lat, lng, new_event_id, date))
+	date = data.get('date', datetime.datetime.now().strftime("%I:%M %p"))
+	add_event((type, time, lat, lng, new_event_id, date, datetime.datetime.now()))
 	if text is not None:
 		time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
 		comments[new_event_id].append({'name': name, 'time': time, 'text': text})
 	new_event_id -= 1
 	return jsonify([])
 
-@app.route('/sms', methods = ['POST'])
+@app.route('/', methods = ['POST'])
 def sms_process():
 	resp = MessagingResponse()
-	data = loads(request.data.decode('utf-8'))
-	from_num = data.get('From', None)
+	from_num = request.values['From']
 	if from_num is not None:
-		subscriber.add(from_num)
-	print('Subscribers: ' + subscribers)
-	resp.message('Thank you! You will now receive for nearby incidents.')
+		subscribers.add(from_num)
+	print('Subscribers: ' + str(subscribers))
+	resp.message('Thank you! You will now receive notifications for nearby incidents.')
 	return str(resp)
 
 def parse_event(event):
 	type = event['attributes']['TYP_ENG'].capitalize()
 	lat = event['geometry']['y']
 	long = event['geometry']['x']
-	time = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%b %d %Y")
+	dt = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%Y.%m.%d %H:%M:%S")
+	time = dt.time()
 	id = event['attributes']['OBJECTID']
-	date = datetime.datetime.strptime(event['attributes']['ATSCENE_TS'], "%I:%M %p")
-	return (type, time, lat, long, id, date)
+	date = dt.date()
+	return (type, time, lat, long, id, date, dt)
 
 def scrape(no_alert=False):
 	global database
