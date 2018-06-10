@@ -48,7 +48,7 @@
     <br>
     I want to receive alerts about:
   </p>
-  <ion-list>
+  <ion-list no-lines>
     <ion-item>
       <ion-label>All</ion-label>
       <ion-toggle></ion-toggle>
@@ -68,9 +68,7 @@
       <ion-label>Violent Crimes</ion-label>
       <ion-toggle></ion-toggle>
     </ion-item>
-  </ion-list>
 
-  <ion-list>
     <ion-item>
       <ion-label>Allow xxx to send me <br> app alerts over data</ion-label>
       <ion-checkbox [(ngModel)]="alertdata"></ion-checkbox>
