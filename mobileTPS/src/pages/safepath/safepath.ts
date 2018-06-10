@@ -32,12 +32,31 @@ export class SafepathPage {
 	locmarker: any;
   points: number[] = [43.6592283, -79.3831013, // bed bath & beyond
                       43.6594032, -79.3820121];
+  waypts: any;
 
 	constructor(private http: Http, public navCtrl: NavController) {
 		this.alat = 43.6565064;
 		this.alng = -79.3806653;
 		this.dest = new google.maps.LatLng(this.blat, this.blng);
 		this.directionsService = new google.maps.DirectionsService();
+		this.waypts = [
+      {
+        location: new google.maps.LatLng(43.6565064, -79.3806653),
+        stopover: true
+      },
+      {
+        location: new google.maps.LatLng(43.657312, -79.3844062),
+        stopover: true
+      },
+      {
+        location: new google.maps.LatLng(43.6643174, -79.3871233),
+        stopover: true
+      },
+      {
+        location: new google.maps.LatLng(43.6649499, -79.3845334),
+        stopover: true
+      }
+    ];
 	}
 
 	ionViewWillEnter() {
@@ -112,7 +131,9 @@ export class SafepathPage {
 			let request = {
 				origin: loc,
 				destination: dest,
-				travelMode: 'WALKING'
+				travelMode: 'WALKING',
+        waypoints: this.waypts,
+        optimizeWaypoints: false
 			};
 			directionsService.route(request, function(result, status) {
 				if (status == 'OK') {
@@ -170,15 +191,19 @@ export class SafepathPage {
 		if (keyPressed.code == 'Enter') {
 			console.log(this.destination);
 
-			let geocoder = new google.maps.Geocoder();
+			/*let geocoder = new google.maps.Geocoder();
 			geocoder.geocode({ 'address': this.destination }, (results, status) => {
 				this.blat = results[0].geometry.location.lat();
 				this.blng = results[0].geometry.location.lng();
 				this.dest = new google.maps.LatLng(this.blat, this.blng);
 				this.drawMap();
 				console.log("lat: " + this.blat + ", long: " + this.blng);
-			});
+			});*/
 
+      this.blat = 43.6661914;
+      this.blng = -79.3834618;
+      this.dest = new google.maps.LatLng(this.blat, this.blng);
+      this.drawMap();
 		}
 	}
 
