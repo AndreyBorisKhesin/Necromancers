@@ -17,7 +17,7 @@ export class ReportPage {
 	}
 
 	constructor(private http: Http, public navCtrl: NavController, private toastCtrl: ToastController) {
-		this.report = {name: undefined, type: undefined, lat: 43.6565064, lng: -79.3806653, text: undefined};
+		this.report = {name: undefined, type: undefined, lat: 43.6576163, lng: -79.3812037, text: undefined};
 	}
 
 	presentToast() {

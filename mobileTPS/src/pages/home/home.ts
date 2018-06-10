@@ -27,8 +27,8 @@ export class HomePage {
 		" ask someone to collect your mail and newspapers.", "Stay off your phone while driving.", "Walk home with friends after dark."];
 		let randInt = this.randomInt(0, 3);
 		this.tip = tip_list[randInt];
-		this.lat = 43.6565064;
-		this.lng = -79.3806653;
+		this.lat = 43.6576163;
+		this.lng = -79.3812037;
 		this.n = 5;
 		this.items = [];
 	}
