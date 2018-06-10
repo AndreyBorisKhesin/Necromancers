@@ -44,7 +44,7 @@ export class SafepathPage {
 	drawInitialMap() {
 		this.loc = new google.maps.LatLng(this.alat, this.alng);
 		let mapOptions = {
-			zoom: 17,
+			zoom: 14,
 			center: new google.maps.LatLng(this.alat, this.alng)
 		}
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -100,9 +100,9 @@ export class SafepathPage {
 			camera: {
 				target: {
 					lat: 43.0741904,
-					lng: -89.3809802
+					lng: -79.3809802
 				},
-				zoom: 18,
+				zoom: 14,
 				tilt: 30
 			}
 		};
@@ -115,7 +115,7 @@ export class SafepathPage {
 			animation: 'DROP',
 			position: {
 				lat: 43.0741904,
-				lng: -89.3809802
+				lng: -79.3809802
 			}
 		});
 		// marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
@@ -126,7 +126,7 @@ export class SafepathPage {
 	initialize(callback) {
 		this.directionsDisplay = new google.maps.DirectionsRenderer();
 		let mapOptions = {
-			zoom: 17,
+			zoom: 14,
 			center: new google.maps.LatLng((this.alat + this.blat) / 2, (this.alng + this.blng) / 2)
 		}
 		this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
