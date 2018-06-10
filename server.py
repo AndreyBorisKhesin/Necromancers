@@ -60,7 +60,7 @@ def add_event(event_tuple, no_alert=True):
 @app.route('/incidents', methods = ['POST'])
 def incidents():
 	data = loads(request.data.decode('utf-8'))
-	n = data.get('n', 10)
+	n = data.get('n', 20)
 	vlist = sorted(map(lambda x: (
 			distance((data['lat'],data['lng']),x) + (datetime.datetime.now() - x[6]).total_seconds() / 18,
 			distance((data['lat'],data['lng']),x),
