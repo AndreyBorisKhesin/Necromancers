@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <p class="heading">Report a crime to Toronto Police. <br><b>If this is an emergency, call 9-1-1.</b></p>
-  <p class="justify" style="margin-bottom: 0pt;">The Incident information you file will be made visible to those in your vicinity.</p>
+  <p class="justify" style="margin-bottom: 0pt;">The incident information you file will be made visible to those in your vicinity.</p>
   <p style="font-size: 8pt; padding-top: 0pt;">Note: Your personal information will not be released.</p>
 
   <ion-list>
@@ -42,11 +42,11 @@
     <ion-item>
       <ion-label>Incident Type</ion-label>
       <ion-select [(ngModel)]="report.type" multiple="false">
-        <ion-option value="missingPerson">Missing Person</ion-option>
-        <ion-option value="violentCrime">Violent Crime</ion-option>
-        <ion-option value="theft">Theft</ion-option>
-        <ion-option value="BE">Breaking and Entering</ion-option>
-        <ion-option value="sexast">Sexual Assult</ion-option>
+        <ion-option value="Missing Person">Missing Person</ion-option>
+        <ion-option value="Violent Crime">Violent Crime</ion-option>
+        <ion-option value="Theft">Theft</ion-option>
+        <ion-option value="Breaking and Entering">Breaking and Entering</ion-option>
+        <ion-option value="Sexual Assault">Sexual Assault</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
@@ -72,8 +72,8 @@
       <ion-textarea rows="3" placeholder="e.g. broken windows, suspect description" text-size="small" [(ngModel)]="report.text"></ion-textarea>
     </ion-item>
 
-    <button ion-button (click)="send($event)">
-      <ion-icon name="send"></ion-icon>
+    <button ion-button class="send" (click)="send($event)">
+      Submit
     </button>
   </ion-list>
 </ion-content>
