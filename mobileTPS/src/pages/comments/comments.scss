@@ -17,6 +17,12 @@ div.pad_sides {
   padding-right: 1em;
 }
 
+div.pad_sides_more {
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+
 h4.red_text {
   color: #c80000;
 }
@@ -37,6 +43,10 @@ span.grey {
   color: #444444;
   font-size: 8pt;
   white-space: nowrap;
+}
+
+p.gray {
+  color: #444444;
 }
 
 span.blue {
