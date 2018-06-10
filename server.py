@@ -150,8 +150,10 @@ def report_event():
 	lng = data['lng']
 	add_event((type, dt, lat, lng, new_event_id, dt, datetime.datetime.now()), no_alert = False)
 	if text is not None:
-		time = data.get('time', datetime.datetime.now().strftime("%Y.%m.%d %H:%M:%S"))
-		comments[new_event_id].append({'name': name, 'time': dt.time(), 'date': dt.date(), 'text': text})
+        dt = datetime.datetime.now()
+        time = dt.strftime("%I:%M %p")
+        date = dt.strftime("%b %d %Y")
+		comments[new_event_id].append({'name': name, 'time': time, 'date': date, 'text': text})
 	new_event_id -= 1
 	return jsonify([])
 
