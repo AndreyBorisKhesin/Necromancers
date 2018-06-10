@@ -3,34 +3,36 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Comments on {{this.id}}</ion-title>
+    <ion-title>{{this.emerg_type}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+<div padding class="pad_sides_more">
   <!--TPS Info -->
   <h4><u>Details on "{{this.emerg_type}}"</u></h4>
-
-  The event took place at {{this.time}}.
-
-  <!-- TODO: Make a map -->
+  <ion-card-content>
+    <p class="black"><b>Incident ID: </b>{{this.id}}</p>
+    <p class="black"><b>Time: </b> {{this.time}}</p>
+    <h6><u>Updates</u></h6>
+    <p class="black"> There are currently no updates on this incident.</p>
+  </ion-card-content>
 
   <!-- Incidents -->
-    <h5><u>Further details</u></h5>
+      <h6>Comments:</h6>
   <ion-card *ngFor="let comment of comments">
-
     <ion-card-content>
       <span class="black"><b>{{comment.name}} said:</b></span>
       <span>{{comment.text}}</span>
       <span class="grey">- {{comment.time}}</span>
-      <!-- <p class="black"><b>Nearest Major Intersection:</b> {{item.maj_int}}</p> -->
     </ion-card-content>
   </ion-card>
-
-  <ion-list>
+  </div>
     <!-- TODO: WORD THIS MORE FORMALLY -->
-    <h6>Post a Comment</h6>
-
+  <div class="pad_sides_more">
+    <h6>Post a Comment:</h6>
+    <p class="grey">If you have any information that pertains to this case, please leave a message below.</p>
+    <ion-list>
     <ion-item>
       <ion-label stacked>Full Name</ion-label>
       <ion-input type="name" [(ngModel)]="posted_comment.name"></ion-input>
@@ -45,4 +47,5 @@
       Submit
     </button>
   </ion-list>
+  </div>
 </ion-content>
